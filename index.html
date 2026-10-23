@@ -287,13 +287,12 @@
       <p class="acesso-adm__kicker">Só para a organização</p>
       <h2>Quer ver quem já respondeu?</h2>
       <p>
-        Área restrita com a lista em ordem alfabética: quem vai, quem não vai,
-        quem se ofereceu para ajudar e quais tarefas ainda estão sem responsável.
-        O acesso pede uma <strong>chave</strong> que só a organização tem.
+        Lista em ordem alfabética: quem vai, quem não vai, quem se ofereceu para ajudar
+        e quais tarefas ainda estão sem responsável. Só entra quem tem a chave.
       </p>
     </div>
-    <a class="btn btn--primary btn--lg" href="admin.html">
-      🔒 Entrar com a chave
+    <a class="btn btn--primary acesso-adm__btn" href="admin.html">
+      <span aria-hidden="true">🔒</span> ACESSO À PLANILHA
     </a>
   </section>
 
@@ -1000,25 +999,35 @@ td.col-tarefas{max-width:330px}
   font-size:12.5px;line-height:1.85;color:#B9CFE4;margin:2px 0 4px
 }
 
-/* --- bloco de acesso da organização (acima do rodapé) --- */
+/* --- bloco de acesso da organização (botão grande acima do rodapé) --- */
 .acesso-adm{
-  margin-top:34px;padding:clamp(22px,4vw,34px);border-radius:24px;
-  background:linear-gradient(135deg,#0B2E52,#071B33 70%);
-  border:1px solid rgba(57,255,20,.22);
-  display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
-  box-shadow:0 24px 60px rgba(7,27,51,.28)
+  margin-top:34px;padding:clamp(24px,4vw,38px);border-radius:26px;
+  background:
+    radial-gradient(ellipse at 85% 15%,rgba(57,255,20,.16),transparent 60%),
+    linear-gradient(135deg,#0B2E52,#071B33 70%);
+  border:1px solid rgba(57,255,20,.28);
+  display:flex;flex-direction:column;gap:22px;
+  box-shadow:0 24px 60px rgba(7,27,51,.3)
 }
 .acesso-adm__kicker{
   font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
   color:var(--neon);margin-bottom:8px
 }
-.acesso-adm h2{font-size:clamp(19px,3.5vw,25px);font-weight:800;color:#fff;letter-spacing:-.02em}
-.acesso-adm p{font-size:14px;color:#BDD3E8;margin-top:8px;max-width:520px;line-height:1.6}
+.acesso-adm h2{font-size:clamp(21px,4vw,28px);font-weight:800;color:#fff;letter-spacing:-.02em}
+.acesso-adm p{font-size:14.5px;color:#BDD3E8;margin-top:9px;max-width:560px;line-height:1.6}
 .acesso-adm p strong{color:#fff}
-.acesso-adm .btn{flex:0 0 auto;white-space:nowrap}
+.acesso-adm__btn{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  width:100%;min-height:78px;padding:22px 26px;
+  font-size:clamp(15px,3.6vw,19px);font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  border-radius:18px;text-decoration:none;
+  box-shadow:0 18px 44px rgba(57,255,20,.38);
+  animation:floatY 3.4s ease-in-out infinite
+}
+.acesso-adm__btn:hover{transform:translateY(-3px) scale(1.01)}
 @media (max-width:640px){
-  .acesso-adm{margin-top:22px;border-radius:18px;flex-direction:column;align-items:stretch}
-  .acesso-adm .btn{width:100%}
+  .acesso-adm{margin-top:22px;border-radius:18px;gap:18px}
+  .acesso-adm__btn{min-height:70px;font-size:15px;letter-spacing:.04em}
 }
 
 .passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
