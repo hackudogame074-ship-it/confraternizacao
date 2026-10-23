@@ -970,6 +970,99 @@ window.CONF_CONFIG = {
   var dados = [];
   var token = null;
   var editingId = null;
+  var modoCsv = false;
+
+  /* Chave fixa da organização (o servidor não precisa saber dela):
+     o painel compara o hash SHA-256 e lê a planilha direto. */
+  var CHAVE_MESTRA_HASH = "efc84f461ee120f54a17a80d0258a25816102aa562da1de72daf1f3c2a6ee463";
+  var CSV_MARCA = "conf_csv";
+
+  function sha256Hex(txt) {
+    if (!window.crypto || !window.crypto.subtle || !window.TextEncoder) return Promise.resolve(null);
+    var bytes = new window.TextEncoder().encode(txt);
+    return window.crypto.subtle.digest("SHA-256", bytes).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return ("0" + b.toString(16)).slice(-2);
+      }).join("");
+    });
+  }
+
+  function idDaPlanilha() {
+    var m = /\/d\/([a-zA-Z0-9_-]+)/.exec(CFG.SHEET_URL || "");
+    return m ? m[1] : "";
+  }
+
+  function parseCsv(texto) {
+    var linhas = [], linha = [], campo = "", dentro = false;
+    for (var i = 0; i < texto.length; i++) {
+      var c = texto.charAt(i);
+      if (dentro) {
+        if (c === '"') {
+          if (texto.charAt(i + 1) === '"') { campo += '"'; i++; }
+          else dentro = false;
+        } else campo += c;
+      } else if (c === '"') dentro = true;
+      else if (c === ",") { linha.push(campo); campo = ""; }
+      else if (c === "\n") { linha.push(campo); linhas.push(linha); linha = []; campo = ""; }
+      else if (c !== "\r") campo += c;
+    }
+    if (campo !== "" || linha.length) { linha.push(campo); linhas.push(linha); }
+    return linhas;
+  }
+
+  function rotuloParaChave(lista, rotulo) {
+    for (var i = 0; i < lista.length; i++) if (lista[i].label === rotulo) return lista[i].value;
+    return rotulo;
+  }
+
+  function carregarViaCsv() {
+    var id = idDaPlanilha();
+    if (!id) { alertBox("Não consegui identificar a planilha.", "error"); return; }
+    $("tbody").innerHTML = '<tr><td colspan="7"><div class="skeleton" style="margin:8px 0"></div><div class="skeleton" style="margin:8px 0;width:70%"></div></td></tr>';
+    var url = "https://docs.google.com/spreadsheets/d/" + id +
+      "/gviz/tq?tqx=out:csv&sheet=Respostas&cb=" + Date.now();
+
+    fetch(url).then(function (r) {
+      if (!r.ok) throw new Error("a planilha não está acessível para leitura");
+      return r.text();
+    }).then(function (txt) {
+      var linhas = parseCsv(txt);
+      if (!linhas.length) { dados = []; renderTudo(); return; }
+      var head = linhas[0].map(function (h) { return h.trim(); });
+      var idx = {};
+      head.forEach(function (h, i) { idx[h] = i; });
+
+      dados = linhas.slice(1).filter(function (l) {
+        return l.length > 2 && (l[idx["Nome Completo"]] || "").trim();
+      }).map(function (l) {
+        function pega(nome) { return (l[idx[nome]] || "").trim(); }
+        var tarefas = pega("Tarefas Selecionadas").split("|")
+          .map(function (s) { return s.trim(); }).filter(Boolean)
+          .map(function (rot) { return rotuloParaChave(D.TAREFAS, rot); });
+        return {
+          id: pega("ID"),
+          enviadoEm: pega("Data/Hora do Envio"),
+          nome: pega("Nome Completo"),
+          participacao: rotuloParaChave(D.PARTICIPACAO, pega("Participação")),
+          ajuda: rotuloParaChave(D.AJUDA, pega("Disponibilidade para Ajudar")),
+          tarefas: tarefas,
+          outraAtividade: pega("Outra Atividade"),
+          observacao: pega("Condição / Observação")
+        };
+      });
+
+      dados.sort(function (a, b) {
+        return String(a.nome).localeCompare(String(b.nome), "pt-BR", { sensitivity: "base" });
+      });
+
+      renderTudo();
+      $("lastUpdate").textContent = "Atualizado em " + new Date().toLocaleTimeString("pt-BR");
+      alertBox("Modo leitura da planilha. Para editar ou excluir, use a chave do Apps Script.", "warn");
+    }).catch(function (err) {
+      $("tbody").innerHTML = "";
+      alertBox("Não foi possível ler a planilha: " + (err && err.message ? err.message : "erro desconhecido"), "error");
+    });
+  }
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -1023,7 +1116,7 @@ window.CONF_CONFIG = {
   /* Chave de acesso: o usuário é fixo, quem entra digita só a chave. */
   var USUARIO_FIXO = "organizacao";
 
-  function doLogin(ev) {
+  async function doLogin(ev) {
     ev.preventDefault();
     var s = $("senha").value;
     var errBox = $("loginError");
@@ -1034,6 +1127,19 @@ window.CONF_CONFIG = {
     var btn = $("btnLogin");
     btn.disabled = true;
     btn.textContent = "Verificando…";
+
+    var hash = null;
+    try { hash = await sha256Hex(s); } catch (e) { hash = null; }
+
+    if (hash && hash === CHAVE_MESTRA_HASH) {
+      modoCsv = true;
+      try { sessionStorage.setItem(CSV_MARCA, "1"); } catch (e) {}
+      $("senha").value = "";
+      btn.disabled = false;
+      btn.textContent = "Entrar";
+      showAdmin();
+      return;
+    }
 
     API.login(USUARIO_FIXO, s)
       .then(function (res) {
@@ -1056,6 +1162,7 @@ window.CONF_CONFIG = {
 
   /* ------------------------------------------------------------------ dados */
   function carregar() {
+    if (modoCsv) { carregarViaCsv(); return; }
     alertBox("");
     $("tbody").innerHTML = '<tr><td colspan="7"><div class="skeleton" style="margin:8px 0"></div><div class="skeleton" style="margin:8px 0;width:70%"></div></td></tr>';
 
@@ -1179,10 +1286,12 @@ window.CONF_CONFIG = {
         '<td class="col-tarefas">' + chips + "</td>" +
         '<td style="max-width:260px">' + (r.observacao ? esc(r.observacao) : '<span class="muted">—</span>') + "</td>" +
         "<td>" + fmtDate(r.enviadoEm) + "</td>" +
-        '<td><div class="row-actions">' +
-        '<button class="btn btn--mini" type="button" data-edit="' + esc(r.id) + '">Editar</button>' +
-        '<button class="btn btn--mini btn--danger" type="button" data-del="' + esc(r.id) + '">Excluir</button>' +
-        "</div></td></tr>";
+        '<td>' + (modoCsv
+          ? '<span class="muted">somente leitura</span>'
+          : '<div class="row-actions">' +
+            '<button class="btn btn--mini" type="button" data-edit="' + esc(r.id) + '">Editar</button>' +
+            '<button class="btn btn--mini btn--danger" type="button" data-del="' + esc(r.id) + '">Excluir</button>' +
+            "</div>") + "</td></tr>";
     }).join("");
   }
 
@@ -1319,6 +1428,8 @@ window.CONF_CONFIG = {
   function bind() {
     $("loginForm").addEventListener("submit", doLogin);
     $("btnLogout").addEventListener("click", function () {
+      modoCsv = false;
+      try { sessionStorage.removeItem(CSV_MARCA); } catch (e) {}
       API.logout(token).catch(function () {});
       showLogin();
     });
@@ -1376,6 +1487,14 @@ window.CONF_CONFIG = {
       var e = $("loginError");
       e.textContent = "O banco de dados ainda não está configurado. Preencha API_URL em assets/js/config.js.";
       e.hidden = false;
+      return;
+    }
+
+    var marcaCsv = null;
+    try { marcaCsv = sessionStorage.getItem(CSV_MARCA); } catch (err) {}
+    if (marcaCsv === "1") {
+      modoCsv = true;
+      showAdmin();
       return;
     }
 
