@@ -26,7 +26,7 @@
         <small>SENAI · Assistente de Logística</small>
       </span>
     </a>
-    <span class="topbar__badge" id="topbarBadge">11 · DEZ · 2026</span>
+    <span class="topbar__badge" hidden aria-hidden="true"></span>
   </div>
   <div class="progress" id="progressWrap" hidden>
     <div class="progress__meta">
@@ -103,33 +103,56 @@
       </div>
     </div>
 
+    <section class="bloco bloco--sobre">
+      <header class="bloco__head reveal">
+        <p class="bloco__kicker">Para que serve este formulário</p>
+        <h2>É simples: saber quem vai e quem ajuda</h2>
+      </header>
+      <p class="bloco__lead reveal">
+        Este formulário é da turma de <strong>Assistente de Logística do SENAI Santarém</strong> e serve
+        para organizar a confraternização de fim de ano do dia 11 de dezembro. Nada de grupo lotado de
+        mensagem: as respostas ficam organizadas numa planilha, em ordem alfabética.
+      </p>
+      <ul class="sobre-lista reveal">
+        <li><strong>Quem vai</strong> — para dimensionar comida, bebida e espaço.</li>
+        <li><strong>Quem pode ajudar</strong> — para dividir as tarefas sem sobrecarregar ninguém.</li>
+        <li><strong>O que falta</strong> — para a organização enxergar as atividades ainda sem responsável.</li>
+      </ul>
+      <p class="privacidade reveal">
+        <strong>Privacidade:</strong> suas respostas são usadas apenas para organizar a confraternização
+        da turma, ficam visíveis somente para os responsáveis pela organização e não são compartilhadas
+        publicamente. Você pode corrigir ou excluir sua resposta a qualquer momento falando com a organização.
+      </p>
+    </section>
+
     <div class="faixa">
-      <div class="info-grid">
+      <div class="info-grid info-grid--rich">
         <article class="info-card reveal">
           <span class="info-card__icon" data-icon="calendar" aria-hidden="true"></span>
           <h2>Data</h2>
           <p>11 de dezembro de 2026</p>
+          <small>Sexta-feira · Turno vespertino</small>
         </article>
         <article class="info-card reveal">
           <span class="info-card__icon" data-icon="clock" aria-hidden="true"></span>
           <h2>Horário</h2>
-          <p id="infoHorario">A confirmar</p>
+          <p>13h30 às 17h20</p>
+          <small>Chegue com alguns minutos de antecedência</small>
         </article>
         <article class="info-card reveal">
           <span class="info-card__icon" data-icon="pin" aria-hidden="true"></span>
-          <h2>Local</h2>
-          <p id="infoLocal">A confirmar</p>
+          <h2>Local · Sala 05</h2>
+          <p>SENAI Santarém — Unidade Prainha</p>
+          <small>Av. Curuá-Una, 249 · Bairro Prainha · Santarém–PA · CEP 68010-000</small>
+          <a class="mapa-link" href="https://www.google.com/maps/search/?api=1&amp;query=Avenida+Curu%C3%A1-Una%2C+249%2C+Prainha%2C+Santar%C3%A9m+-+PA%2C+68010-000" target="_blank" rel="noopener">Ver no mapa ↗</a>
         </article>
         <article class="info-card reveal">
           <span class="info-card__icon" data-icon="gift" aria-hidden="true"></span>
-          <h2>Traje</h2>
-          <p id="infoTraje">Livre, com um detalhe natalino</p>
+          <h2>Vestimenta</h2>
+          <p>Farda oficial do SENAI</p>
+          <small>Sapato fechado e calça jeans azul ou preta (vale calça social preta)</small>
         </article>
       </div>
-      <p class="faixa__note">
-        Horário e local serão confirmados pela organização e publicados aqui. Os alunos da turma
-        recebem o aviso no grupo da sala.
-      </p>
     </div>
 
     <section class="bloco">
@@ -207,9 +230,8 @@
       <p class="form__error" id="formError" role="alert" aria-live="assertive" hidden></p>
 
       <p class="privacy-inline">
-        Suas respostas serão utilizadas para organizar a confraternização da turma. As informações serão
-        acessadas apenas pelas pessoas responsáveis pela organização e não devem ser compartilhadas
-        publicamente sem necessidade.
+        Uso interno da organização. Suas respostas não são públicas e podem ser corrigidas ou excluídas
+        a qualquer momento.
       </p>
 
       <div class="form__footer">
@@ -268,10 +290,6 @@
       Este site foi desenvolvido e organizado pela própria turma para uso interno na organização da
       confraternização de 11 de dezembro de 2026. Não é uma plataforma oficial do SENAI e não utiliza
       o logotipo oficial da instituição.
-    </p>
-    <p class="footer__note">
-      Suas respostas serão utilizadas apenas para organizar a confraternização da turma, não serão
-      compartilhadas publicamente e podem ser corrigidas ou excluídas pela organização a qualquer momento.
     </p>
     <nav class="footer__links" aria-label="Links do rodapé">
       <a href="#conteudo">Início</a>
@@ -801,7 +819,7 @@ td.col-tarefas{max-width:330px}
 }
 
 /* ==========================================================================
- * landing.css — hero com arte, contagem regressiva, blocos e confete (v1.4)
+ * landing.css — hero com arte, contagem regressiva, blocos e confete (v1.5)
  * Carregado DEPOIS de styles.css
  * ======================================================================= */
 
@@ -897,6 +915,14 @@ td.col-tarefas{max-width:330px}
 .faixa__note{
   margin-top:14px;font-size:12.5px;color:var(--muted);text-align:center;line-height:1.6
 }
+.info-grid--rich{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.info-grid--rich .info-card p{margin-top:0}
+.info-card small{display:block;margin-top:7px;font-size:12.5px;line-height:1.55;color:var(--muted);font-weight:500}
+.mapa-link{
+  display:inline-block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--blue);
+  text-decoration:none;border-bottom:1px dashed rgba(0,92,169,.4);padding-bottom:1px
+}
+.mapa-link:hover{color:var(--blue-600);border-bottom-style:solid}
 
 /* --- blocos --- */
 .bloco{
@@ -907,6 +933,7 @@ td.col-tarefas{max-width:330px}
   background:linear-gradient(150deg,#071B33,#0B2E52 70%,#0A3A5E);
   border-color:rgba(95,168,220,.2);color:#DCE9F5
 }
+.bloco--sobre{background:linear-gradient(160deg,#FFFFFF,#F5FAFF)}
 .bloco__head{margin-bottom:22px}
 .bloco__kicker{
   font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
@@ -917,8 +944,23 @@ td.col-tarefas{max-width:330px}
 .bloco--dark .bloco__head h2{color:#fff}
 .bloco__lead{font-size:15.5px;color:var(--muted);line-height:1.75;max-width:720px}
 .bloco--dark .bloco__lead{color:#BDD3E8}
+.bloco__lead strong{color:var(--dark);font-weight:800}
+.bloco--dark .bloco__lead strong{color:#fff}
 .bloco__foot{margin-top:20px;font-size:14px;color:#BDD3E8}
 .bloco__foot em{color:#fff;font-style:normal;font-weight:800}
+
+.sobre-lista{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px}
+.sobre-lista li{position:relative;padding-left:30px;font-size:14.5px;color:var(--muted);line-height:1.6}
+.sobre-lista li::before{
+  content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:50%;
+  background:var(--neon);box-shadow:0 0 0 4px rgba(57,255,20,.18)
+}
+.sobre-lista strong{color:var(--dark);font-weight:800}
+.privacidade{
+  margin-top:22px;padding:14px 16px;border-radius:14px;background:rgba(0,92,169,.06);
+  border-left:4px solid var(--blue);font-size:13px;line-height:1.65;color:#34506B
+}
+.privacidade strong{color:var(--blue)}
 
 .passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
 .passo{
@@ -965,6 +1007,7 @@ html.js .reveal.is-visible{opacity:1;transform:none}
   .countdown{gap:7px}
   .countdown__item{flex:1 1 0;min-width:0;padding:10px 4px}
   .bloco{margin-top:22px;border-radius:18px;padding:22px 18px}
+  .info-grid--rich{grid-template-columns:1fr}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -980,7 +1023,8 @@ html.js .reveal.is-visible{opacity:1;transform:none}
 /* =============================================================================
  * config.js — Configuração do site
  * -----------------------------------------------------------------------------
- * Preencha API_URL com a URL do Web App do Google Apps Script (ver README.md).
+ * API_URL liga o formulário ao Google Sheets (Web App do Apps Script).
+ * As informações do evento estão escritas direto no index.html.
  * ========================================================================== */
 window.CONF_CONFIG = {
   /* URL do Web App do Apps Script — termina em /exec */
@@ -990,13 +1034,9 @@ window.CONF_CONFIG = {
   SHEET_URL: "https://docs.google.com/spreadsheets/d/1sJuuv_GuPQY02B1D9c8kxYqLlv8mAi9JoH9xfkj0S-Q/edit",
   DOC_URL: "",
 
-  /* Dados do evento — edite aqui quando a organização definir */
+  /* Evento */
   EVENT_DATE_ISO: "2026-12-11",
   EVENT_DATE_LABEL: "11 de dezembro de 2026",
-  EVENT_SHORT: "11 · DEZ · 2026",
-  EVENT_TIME_LABEL: "A confirmar",
-  EVENT_PLACE_LABEL: "A confirmar",
-  DRESS_LABEL: "Livre, com um detalhe natalino",
   CLASS_NAME: "Assistente de Logística",
 
   /* Contagem regressiva — meia-noite do dia do evento (horário de Brasília) */
@@ -1825,19 +1865,6 @@ window.CONF_CONFIG = {
   }
 
   /* --------------------------------------------------------- landing v1.4 */
-  function preencherInfo() {
-    var pares = [
-      ["infoHorario", CFG.EVENT_TIME_LABEL],
-      ["infoLocal", CFG.EVENT_PLACE_LABEL],
-      ["infoTraje", CFG.DRESS_LABEL],
-      ["topbarBadge", CFG.EVENT_SHORT]
-    ];
-    pares.forEach(function (p) {
-      var node = document.getElementById(p[0]);
-      if (node && p[1]) node.textContent = p[1];
-    });
-  }
-
   function iniciarContagem() {
     var alvo = new Date(CFG.COUNTDOWN_ISO || "2026-12-11T00:00:00-03:00").getTime();
     if (isNaN(alvo)) return;
@@ -1926,7 +1953,6 @@ window.CONF_CONFIG = {
       node.innerHTML = D.icon(node.getAttribute("data-icon"), node.classList.contains("info-card__icon") ? 24 : 18);
     });
     if (!API.isConfigured()) el.configWarning.hidden = false;
-    preencherInfo();
     iniciarContagem();
     carregarContador();
     animarReveal();
