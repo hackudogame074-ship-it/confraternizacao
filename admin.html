@@ -9,6 +9,171 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071B33'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='30' font-weight='bold' text-anchor='middle' fill='%2339FF14'%3ECS%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<a class="skip-link" href="#adminConteudo">Ir para o conteúdo principal</a>
+
+<!-- ============================== LOGIN ============================== -->
+<section id="viewLogin">
+  <div class="card login">
+    <div class="login__icon" data-icon="lock" aria-hidden="true"></div>
+    <h1>Painel do organizador</h1>
+    <p>Área restrita à organização do Formulário de Confraternização. O acesso é validado no servidor.</p>
+
+    <p class="alert alert--error" id="loginError" role="alert" hidden></p>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label class="field__label" for="usuario">Usuário</label>
+        <input class="input" id="usuario" name="usuario" type="text" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label class="field__label" for="senha">Senha</label>
+        <input class="input" id="senha" name="senha" type="password" autocomplete="current-password" required />
+      </div>
+      <button class="btn btn--primary btn--lg" type="submit" id="btnLogin" style="width:100%">Entrar no painel</button>
+    </form>
+    <p class="field__hint" style="margin-top:16px">
+      Esqueceu a senha? Ela fica guardada nas propriedades do script do Apps Script (<code>SENHA_ADMIN</code>).
+    </p>
+    <p style="margin-top:10px"><a href="index.html" style="color:var(--blue);font-weight:600;font-size:14px">← Voltar ao formulário</a></p>
+  </div>
+</section>
+
+<!-- ============================== PAINEL ============================== -->
+<section id="viewAdmin" hidden>
+  <div class="admin-top">
+    <div class="admin-wrap">
+      <div class="admin-head">
+        <div>
+          <div class="admin-head__title">Painel do organizador · Formulário de Confraternização</div>
+          <div class="admin-head__sub" id="adminSub">Turma de Assistente de Logística · 11 de dezembro de 2026</div>
+        </div>
+        <div class="admin-actions">
+          <a class="btn btn--ghost" id="linkSheet" target="_blank" rel="noopener">Planilha</a>
+          <button class="btn btn--ghost" id="btnCsv" type="button">Exportar CSV</button>
+          <button class="btn btn--ghost" id="btnReload" type="button">Atualizar dados</button>
+          <button class="btn btn--danger" id="btnLogout" type="button">Sair</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="admin-main" id="adminConteudo">
+    <div id="adminAlert" hidden></div>
+
+    <div class="section" style="margin-top:0">
+      <div class="section__head">
+        <h2>Indicadores</h2>
+        <span class="section__hint" id="lastUpdate"></span>
+      </div>
+      <div class="kpis" id="kpis">
+        <div class="kpi"><div class="kpi__label">Total de respostas</div><div class="kpi__value">—</div></div>
+        <div class="kpi"><div class="kpi__label">Confirmados</div><div class="kpi__value">—</div></div>
+        <div class="kpi"><div class="kpi__label">Indecisos</div><div class="kpi__value">—</div></div>
+        <div class="kpi"><div class="kpi__label">Não participarão</div><div class="kpi__value">—</div></div>
+        <div class="kpi"><div class="kpi__label">Podem ajudar</div><div class="kpi__value">—</div></div>
+        <div class="kpi"><div class="kpi__label">Talvez ajudem</div><div class="kpi__value">—</div></div>
+        <div class="kpi"><div class="kpi__label">Não ajudarão</div><div class="kpi__value">—</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section__head">
+        <h2>Voluntários por tarefa</h2>
+        <span class="section__hint">Atividades sem responsáveis aparecem destacadas — nenhuma tarefa é atribuída automaticamente.</span>
+      </div>
+      <div class="tasks-grid" id="tasksGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section__head">
+        <h2>Respostas</h2>
+        <span class="section__hint" id="tableCount"></span>
+      </div>
+
+      <div class="toolbar" role="search">
+        <div class="field-inline">
+          <label for="fBusca">Buscar por nome</label>
+          <input id="fBusca" type="search" placeholder="Digite parte do nome" />
+        </div>
+        <div class="field-inline">
+          <label for="fParticipacao">Participação</label>
+          <select id="fParticipacao"><option value="">Todas</option></select>
+        </div>
+        <div class="field-inline">
+          <label for="fAjuda">Disponibilidade</label>
+          <select id="fAjuda"><option value="">Todas</option></select>
+        </div>
+        <div class="field-inline">
+          <label for="fTarefa">Tarefa</label>
+          <select id="fTarefa"><option value="">Todas</option></select>
+        </div>
+        <button class="btn btn--ghost" id="btnClearFilters" type="button" style="align-self:flex-end">Limpar filtros</button>
+      </div>
+
+      <div class="table-wrap" style="margin-top:14px">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Participação</th>
+              <th scope="col">Ajuda</th>
+              <th scope="col">Tarefas</th>
+              <th scope="col">Observações</th>
+              <th scope="col">Enviado em</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div id="tableEmpty" hidden></div>
+    </div>
+  </main>
+</section>
+
+<dialog id="editDialog" aria-labelledby="editTitle">
+  <form method="dialog" class="card" style="margin:0;max-width:620px;max-height:88vh;overflow:auto">
+    <h2 id="editTitle" style="font-size:19px;font-weight:800;margin-bottom:6px">Editar resposta</h2>
+    <p class="field__hint" id="editWho" style="margin-bottom:18px"></p>
+
+    <div class="field">
+      <label class="field__label" for="eNome">Nome completo</label>
+      <input class="input" id="eNome" type="text" maxlength="120" />
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label class="field__label" for="eParticipacao">Participação</label>
+      <select class="input" id="eParticipacao"></select>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label class="field__label" for="eAjuda">Disponibilidade para ajudar</label>
+      <select class="input" id="eAjuda"></select>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <span class="field__label">Tarefas</span>
+      <div class="options options--grid" id="eTarefas"></div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label class="field__label" for="eOutra">Outra atividade</label>
+      <input class="input" id="eOutra" type="text" maxlength="180" />
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label class="field__label" for="eObs">Observação</label>
+      <textarea class="input textarea" id="eObs" maxlength="600" rows="3"></textarea>
+    </div>
+
+    <p class="alert alert--error" id="editError" hidden style="margin-top:16px"></p>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap">
+      <button class="btn btn--ghost" type="button" id="btnEditCancel">Cancelar</button>
+      <button class="btn btn--primary" type="button" id="btnEditSave">Salvar alterações</button>
+    </div>
+  </form>
+</dialog>
+
 <style>
 /* =============================================================================
  * styles.css — Formulário de Confraternização · SENAI 2026
@@ -529,171 +694,6 @@ td.col-tarefas{max-width:330px}
 }
 
 </style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071B33'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='30' font-weight='bold' text-anchor='middle' fill='%2339FF14'%3ECS%3C/text%3E%3C/svg%3E" />
-</head>
-<body>
-
-<a class="skip-link" href="#adminConteudo">Ir para o conteúdo principal</a>
-
-<!-- ============================== LOGIN ============================== -->
-<section id="viewLogin">
-  <div class="card login">
-    <div class="login__icon" data-icon="lock" aria-hidden="true"></div>
-    <h1>Painel do organizador</h1>
-    <p>Área restrita à organização do Formulário de Confraternização. O acesso é validado no servidor.</p>
-
-    <p class="alert alert--error" id="loginError" role="alert" hidden></p>
-
-    <form id="loginForm" novalidate>
-      <div class="field">
-        <label class="field__label" for="usuario">Usuário</label>
-        <input class="input" id="usuario" name="usuario" type="text" autocomplete="username" required />
-      </div>
-      <div class="field">
-        <label class="field__label" for="senha">Senha</label>
-        <input class="input" id="senha" name="senha" type="password" autocomplete="current-password" required />
-      </div>
-      <button class="btn btn--primary btn--lg" type="submit" id="btnLogin" style="width:100%">Entrar no painel</button>
-    </form>
-    <p class="field__hint" style="margin-top:16px">
-      Esqueceu a senha? Ela fica guardada nas propriedades do script do Apps Script (<code>SENHA_ADMIN</code>).
-    </p>
-    <p style="margin-top:10px"><a href="index.html" style="color:var(--blue);font-weight:600;font-size:14px">← Voltar ao formulário</a></p>
-  </div>
-</section>
-
-<!-- ============================== PAINEL ============================== -->
-<section id="viewAdmin" hidden>
-  <div class="admin-top">
-    <div class="admin-wrap">
-      <div class="admin-head">
-        <div>
-          <div class="admin-head__title">Painel do organizador · Formulário de Confraternização</div>
-          <div class="admin-head__sub" id="adminSub">Turma de Assistente de Logística · 11 de dezembro de 2026</div>
-        </div>
-        <div class="admin-actions">
-          <a class="btn btn--ghost" id="linkSheet" target="_blank" rel="noopener">Planilha</a>
-          <button class="btn btn--ghost" id="btnCsv" type="button">Exportar CSV</button>
-          <button class="btn btn--ghost" id="btnReload" type="button">Atualizar dados</button>
-          <button class="btn btn--danger" id="btnLogout" type="button">Sair</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <main class="admin-main" id="adminConteudo">
-    <div id="adminAlert" hidden></div>
-
-    <div class="section" style="margin-top:0">
-      <div class="section__head">
-        <h2>Indicadores</h2>
-        <span class="section__hint" id="lastUpdate"></span>
-      </div>
-      <div class="kpis" id="kpis">
-        <div class="kpi"><div class="kpi__label">Total de respostas</div><div class="kpi__value">—</div></div>
-        <div class="kpi"><div class="kpi__label">Confirmados</div><div class="kpi__value">—</div></div>
-        <div class="kpi"><div class="kpi__label">Indecisos</div><div class="kpi__value">—</div></div>
-        <div class="kpi"><div class="kpi__label">Não participarão</div><div class="kpi__value">—</div></div>
-        <div class="kpi"><div class="kpi__label">Podem ajudar</div><div class="kpi__value">—</div></div>
-        <div class="kpi"><div class="kpi__label">Talvez ajudem</div><div class="kpi__value">—</div></div>
-        <div class="kpi"><div class="kpi__label">Não ajudarão</div><div class="kpi__value">—</div></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section__head">
-        <h2>Voluntários por tarefa</h2>
-        <span class="section__hint">Atividades sem responsáveis aparecem destacadas — nenhuma tarefa é atribuída automaticamente.</span>
-      </div>
-      <div class="tasks-grid" id="tasksGrid"></div>
-    </div>
-
-    <div class="section">
-      <div class="section__head">
-        <h2>Respostas</h2>
-        <span class="section__hint" id="tableCount"></span>
-      </div>
-
-      <div class="toolbar" role="search">
-        <div class="field-inline">
-          <label for="fBusca">Buscar por nome</label>
-          <input id="fBusca" type="search" placeholder="Digite parte do nome" />
-        </div>
-        <div class="field-inline">
-          <label for="fParticipacao">Participação</label>
-          <select id="fParticipacao"><option value="">Todas</option></select>
-        </div>
-        <div class="field-inline">
-          <label for="fAjuda">Disponibilidade</label>
-          <select id="fAjuda"><option value="">Todas</option></select>
-        </div>
-        <div class="field-inline">
-          <label for="fTarefa">Tarefa</label>
-          <select id="fTarefa"><option value="">Todas</option></select>
-        </div>
-        <button class="btn btn--ghost" id="btnClearFilters" type="button" style="align-self:flex-end">Limpar filtros</button>
-      </div>
-
-      <div class="table-wrap" style="margin-top:14px">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">Participação</th>
-              <th scope="col">Ajuda</th>
-              <th scope="col">Tarefas</th>
-              <th scope="col">Observações</th>
-              <th scope="col">Enviado em</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </div>
-      <div id="tableEmpty" hidden></div>
-    </div>
-  </main>
-</section>
-
-<dialog id="editDialog" aria-labelledby="editTitle">
-  <form method="dialog" class="card" style="margin:0;max-width:620px;max-height:88vh;overflow:auto">
-    <h2 id="editTitle" style="font-size:19px;font-weight:800;margin-bottom:6px">Editar resposta</h2>
-    <p class="field__hint" id="editWho" style="margin-bottom:18px"></p>
-
-    <div class="field">
-      <label class="field__label" for="eNome">Nome completo</label>
-      <input class="input" id="eNome" type="text" maxlength="120" />
-    </div>
-    <div class="field" style="margin-top:14px">
-      <label class="field__label" for="eParticipacao">Participação</label>
-      <select class="input" id="eParticipacao"></select>
-    </div>
-    <div class="field" style="margin-top:14px">
-      <label class="field__label" for="eAjuda">Disponibilidade para ajudar</label>
-      <select class="input" id="eAjuda"></select>
-    </div>
-    <div class="field" style="margin-top:14px">
-      <span class="field__label">Tarefas</span>
-      <div class="options options--grid" id="eTarefas"></div>
-    </div>
-    <div class="field" style="margin-top:14px">
-      <label class="field__label" for="eOutra">Outra atividade</label>
-      <input class="input" id="eOutra" type="text" maxlength="180" />
-    </div>
-    <div class="field" style="margin-top:14px">
-      <label class="field__label" for="eObs">Observação</label>
-      <textarea class="input textarea" id="eObs" maxlength="600" rows="3"></textarea>
-    </div>
-
-    <p class="alert alert--error" id="editError" hidden style="margin-top:16px"></p>
-
-    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap">
-      <button class="btn btn--ghost" type="button" id="btnEditCancel">Cancelar</button>
-      <button class="btn btn--primary" type="button" id="btnEditSave">Salvar alterações</button>
-    </div>
-  </form>
-</dialog>
-
 <script>
 
 /* ===== assets/js/config.js ===== */
@@ -701,24 +701,26 @@ td.col-tarefas{max-width:330px}
  * config.js — Configuração do site
  * -----------------------------------------------------------------------------
  * Preencha API_URL com a URL do Web App do Google Apps Script (ver README.md).
- * Enquanto API_URL estiver vazia, o site exibe um aviso e NÃO simula gravação:
- * nenhuma resposta é salva permanentemente.
  * ========================================================================== */
 window.CONF_CONFIG = {
-  /* URL do Web App do Apps Script — termina em /exec
-   * Ex.: "https://script.google.com/macros/s/AKfycb.../exec"            */
+  /* URL do Web App do Apps Script — termina em /exec */
   API_URL: "https://script.google.com/macros/s/AKfycbxAsQ5uokdOpkrZUrWMbhs8EsZAuia1xbdNcRmudKOy0bvgNr8Io1KkW4u8C6EyZWRr/exec",
 
-  /* Documentos criados para este projeto */
+  /* Documentos do projeto */
   SHEET_URL: "https://docs.google.com/spreadsheets/d/1sJuuv_GuPQY02B1D9c8kxYqLlv8mAi9JoH9xfkj0S-Q/edit",
-  /* Relatório no Google Docs: DESATIVADO a pedido da organização.
-     A organização usa apenas a planilha, em ordem alfabética. */
   DOC_URL: "",
 
-  /* Dados do evento */
+  /* Dados do evento — edite aqui quando a organização definir */
   EVENT_DATE_ISO: "2026-12-11",
   EVENT_DATE_LABEL: "11 de dezembro de 2026",
-  CLASS_NAME: "Assistente de Logística"
+  EVENT_SHORT: "11 · DEZ · 2026",
+  EVENT_TIME_LABEL: "A confirmar",
+  EVENT_PLACE_LABEL: "A confirmar",
+  DRESS_LABEL: "Livre, com um detalhe natalino",
+  CLASS_NAME: "Assistente de Logística",
+
+  /* Contagem regressiva — meia-noite do dia do evento (horário de Brasília) */
+  COUNTDOWN_ISO: "2026-12-11T00:00:00-03:00"
 };
 
 
@@ -813,6 +815,9 @@ window.CONF_CONFIG = {
     coins: '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',
     truck: '<path d="M3 6h11v10H3z"/><path d="M14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
     clipboard: '<rect x="6" y="4" width="12" height="17" rx="2.5"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h4"/>',
+    pin: '<path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/>',
+    gift: '<rect x="3" y="9" width="18" height="12" rx="2"/><path d="M3 13h18M12 9v12"/><path d="M12 9S10.4 4 8 4a2.5 2.5 0 000 5z"/><path d="M12 9s1.6-5 4-5a2.5 2.5 0 010 5z"/>',
+    sparkles2: '<path d="M12 2.5l1.7 4.3 4.3 1.7-4.3 1.7L12 14.5l-1.7-4.3L6 8.5l4.3-1.7z"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
     trash: '<path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7l1 13h10l1-13"/>',
     download: '<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',
