@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#071B33" />
+<title>Formulário de Confraternização — SENAI 2026</title>
+<meta name="description" content="Formulário de organização da confraternização de fim de ano da turma de Assistente de Logística do SENAI. Data do evento: 11 de dezembro de 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* =============================================================================
+ * styles.css — Formulário de Confraternização · SENAI 2026
+ * Paleta: azul institucional #005CA9 · azul escuro #071B33 · branco · cinza claro
+ * (o verde neon foi substituído pelo azul escuro)
+ * ========================================================================== */
+
+:root{
+  --blue:#005CA9;
+  --blue-600:#004E90;
+  --blue-300:#5FA8DC;
+  --blue-100:#E6F0F9;
+  --dark:#071B33;
+  --dark-700:#0E2A4A;
+  --dark-500:#16406E;
+  --white:#FFFFFF;
+  --light:#F2F5F8;
+  --line:#DCE4ED;
+  --muted:#5C6B7F;
+  --danger:#C62828;
+  --ok:#0B7A22;
+  --neon:#39FF14;
+  --neon-dark:#1FBF08;
+  --accent:var(--neon);
+  --accent-hover:#4DFF2C;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(7,27,51,.06), 0 8px 24px rgba(7,27,51,.08);
+  --shadow-lg:0 2px 4px rgba(7,27,51,.06), 0 18px 48px rgba(7,27,51,.14);
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--font);background:var(--light);color:var(--dark);
+  line-height:1.55;-webkit-font-smoothing:antialiased;font-size:16px;overflow-x:hidden;
+}
+h1,h2,h3{margin:0;line-height:1.2;letter-spacing:-.02em}
+p{margin:0}
+button{font-family:inherit}
+code{background:#e8eef6;padding:.1em .4em;border-radius:6px;font-size:.88em}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--dark);color:#fff;padding:12px 18px;z-index:100;border-radius:0 0 10px 0}
+.skip-link:focus{left:0}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+/* ============================================================== animações */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideStep{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes floatOrb{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(24px,-30px,0) scale(1.08)}
+}
+@keyframes floatOrb2{
+  0%,100%{transform:translate3d(0,0,0) scale(1.05)}
+  50%{transform:translate3d(-30px,22px,0) scale(.95)}
+}
+@keyframes shimmer{from{background-position:-200% 0}to{background-position:200% 0}}
+@keyframes drawCheck{to{stroke-dashoffset:0}}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes ringPulse{
+  0%{box-shadow:0 0 0 0 rgba(57,255,20,.4)}
+  70%{box-shadow:0 0 0 18px rgba(57,255,20,0)}
+  100%{box-shadow:0 0 0 0 rgba(57,255,20,0)}
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sk{to{background-position:-200% 0}}
+@keyframes timerTick{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes floatUp{0%{opacity:0;transform:translateY(10px) scale(.9)}30%{opacity:1}100%{opacity:0;transform:translateY(-46px) scale(1.05)}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* ================================================================= topbar */
+.topbar{position:sticky;top:0;z-index:40;background:var(--dark);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.08)}
+.topbar__inner{max-width:880px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;min-width:0}
+.brand__mark{
+  width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(150deg,var(--blue),#0a3d6e);color:var(--neon);font-weight:800;font-size:15px;
+  border:1px solid rgba(57,255,20,.4);letter-spacing:.5px;transition:transform .3s var(--ease)
+}
+.brand:hover .brand__mark{transform:rotate(-6deg) scale(1.06)}
+.brand__text{display:flex;flex-direction:column;min-width:0}
+.brand__text strong{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand__text small{font-size:12px;color:#9FB4CC}
+.topbar__badge{
+  flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.12em;padding:7px 12px;border-radius:999px;
+  color:var(--neon);border:1px solid rgba(57,255,20,.42);background:rgba(57,255,20,.08)
+}
+
+/* =============================================================== progresso */
+.progress{max-width:880px;margin:0 auto;padding:10px 20px 14px;background:var(--dark)}
+.progress__meta{display:flex;justify-content:space-between;font-size:12px;color:#9FB4CC;font-weight:600;margin-bottom:7px}
+.progress__track{height:7px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+.progress__fill{
+  height:100%;width:0;border-radius:99px;position:relative;overflow:hidden;
+  background:linear-gradient(90deg,var(--blue-300),var(--neon));
+  background-size:200% 100%;animation:shimmer 3s linear infinite;
+  transition:width .55s var(--ease)
+}
+.progress__fill::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:translateX(-100%);animation:sheen 2.4s ease-in-out infinite
+}
+@keyframes sheen{0%{transform:translateX(-100%)}55%,100%{transform:translateX(220%)}}
+
+/* ================================================================= avisos */
+.config-warning{
+  max-width:880px;margin:16px auto 0;padding:14px 18px;border-radius:var(--radius-sm);
+  background:#FFF7E6;border:1px solid #F0C36D;color:#6B4A00;font-size:14px;
+  display:flex;flex-direction:column;gap:4px;animation:fadeUp .5s var(--ease) both
+}
+
+/* ================================================================== views */
+main{max-width:880px;margin:0 auto;padding:0 20px 64px}
+.view{animation:fadeUp .5s var(--ease) both}
+
+/* =================================================================== hero */
+.hero{padding:52px 0 8px;text-align:center;position:relative}
+.hero::before,.hero::after{
+  content:"";position:absolute;border-radius:50%;filter:blur(46px);pointer-events:none;z-index:-1;opacity:.5
+}
+.hero::before{
+  width:260px;height:260px;top:-40px;left:-70px;
+  background:radial-gradient(circle,rgba(0,92,169,.5),transparent 70%);animation:floatOrb 13s ease-in-out infinite
+}
+.hero::after{
+  width:300px;height:300px;top:60px;right:-90px;
+  background:radial-gradient(circle,rgba(95,168,220,.45),transparent 70%);animation:floatOrb2 16s ease-in-out infinite
+}
+.hero__eyebrow{
+  display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);background:rgba(0,92,169,.09);padding:7px 14px;border-radius:999px;margin-bottom:20px;
+  animation:fadeUp .6s var(--ease) both
+}
+.hero h1{font-size:clamp(30px,7vw,46px);font-weight:800;color:var(--dark);animation:fadeUp .6s var(--ease) .06s both}
+.hero__subtitle{margin:16px auto 0;max-width:620px;font-size:clamp(15px,2.4vw,18px);color:var(--muted);animation:fadeUp .6s var(--ease) .12s both}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:36px 0 0;text-align:left}
+.info-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px;
+  box-shadow:var(--shadow);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+  animation:fadeUp .6s var(--ease) both
+}
+.info-card:nth-child(1){animation-delay:.18s}
+.info-card:nth-child(2){animation-delay:.26s}
+.info-card:nth-child(3){animation-delay:.34s}
+.info-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--blue-300)}
+.info-card__icon{
+  display:inline-grid;place-items:center;width:42px;height:42px;border-radius:12px;
+  background:rgba(0,92,169,.08);color:var(--blue);margin-bottom:12px;transition:transform .3s var(--ease)
+}
+.info-card:hover .info-card__icon{transform:scale(1.1) rotate(-4deg)}
+.info-card h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:6px}
+.info-card p{font-size:15px;font-weight:600;color:var(--dark)}
+.hero__actions{margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:12px;animation:fadeUp .6s var(--ease) .42s both}
+.hero__hint{font-size:13px;color:var(--muted)}
+
+/* ================================================================= botões */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border:1px solid transparent;border-radius:999px;padding:12px 22px;font-size:15px;font-weight:700;
+  cursor:pointer;overflow:hidden;
+  transition:transform .18s var(--ease),box-shadow .22s var(--ease),background-color .18s,color .18s,border-color .18s;
+  text-decoration:none;line-height:1;min-height:46px
+}
+.btn__icon{display:inline-flex}
+.btn__icon--flip svg{transform:rotate(180deg)}
+.btn--lg{padding:16px 30px;font-size:16px;min-height:54px}
+.btn--primary{background:var(--accent);color:#04240B;box-shadow:0 8px 22px rgba(57,255,20,.28)}
+.btn--primary::after{
+  content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.32),transparent);
+  transform:skewX(-18deg);transition:left .55s var(--ease)
+}
+.btn--primary:hover::after{left:120%}
+.btn--primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 14px 30px rgba(57,255,20,.36)}
+.btn--primary:active{transform:translateY(0) scale(.985)}
+.btn--primary:disabled{opacity:.7;cursor:not-allowed;transform:none;box-shadow:none}
+.btn--primary:disabled::after{display:none}
+.btn--ghost{background:var(--white);border-color:var(--line);color:var(--dark)}
+.btn--ghost:hover{border-color:var(--blue-300);color:var(--blue);background:#F7FAFD;transform:translateY(-1px)}
+.btn--dark{background:var(--blue);color:#fff}
+.btn--dark:hover{background:var(--blue-600)}
+.btn--mini{padding:6px 12px;font-size:12.5px;min-height:34px;background:var(--blue-100);color:var(--blue);border-radius:999px;gap:5px}
+.btn--mini:hover{background:#D8E8F6}
+.btn--danger{background:#FDECEC;color:var(--danger);border-color:#F5C6C6}
+.btn--danger:hover{background:#FBDDDD}
+
+/* ================================================================= cartão */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);padding:28px;margin-top:32px;animation:fadeUp .5s var(--ease) both
+}
+.form__head{padding-bottom:20px;border-bottom:1px solid var(--line)}
+.form__step{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.form__title{font-size:clamp(21px,4vw,27px);font-weight:800}
+.form__desc{margin-top:9px;color:var(--muted);font-size:15px}
+.form__body{padding:24px 0 4px;animation:slideStep .4s var(--ease) both}
+.form__body:focus{outline:none}
+.form__footer{display:flex;gap:12px;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--line);margin-top:20px}
+.form__error{
+  margin:18px 0 0;padding:13px 16px;border-radius:var(--radius-sm);background:#FDECEC;
+  border:1px solid #F5C6C6;color:var(--danger);font-size:14px;font-weight:600;animation:fadeUp .3s var(--ease) both
+}
+
+/* =============================================================== cronômetro */
+.timer{
+  display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin:0 auto 18px;padding:9px 18px;width:fit-content;border-radius:999px;
+  background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow);
+  font-size:13.5px;color:var(--muted);animation:fadeUp .45s var(--ease) both
+}
+.timer__icon{display:inline-flex;color:var(--blue)}
+.timer__label{font-weight:600}
+.timer__value{
+  font-variant-numeric:tabular-nums;font-weight:800;font-size:15px;color:var(--dark);
+  min-width:46px;text-align:center;letter-spacing:.02em
+}
+.timer.is-low{border-color:var(--neon-dark);background:#F4FEF1}
+.timer.is-low .timer__value{color:#0B7A22;animation:timerTick 1s ease-in-out infinite}
+.timer.is-over{border-color:var(--line);background:var(--light)}
+.timer.is-over .timer__value{display:none}
+.timer.is-over .timer__label{color:var(--blue);font-weight:700}
+.timer__track{width:100%;max-width:280px;height:4px;border-radius:99px;background:var(--line);overflow:hidden}
+.timer__fill{height:100%;width:100%;background:linear-gradient(90deg,var(--blue-300),var(--neon));transition:width 1s linear}
+
+/* ================================================================= campos */
+.fieldset{border:0;padding:0;margin:0}
+.field{display:flex;flex-direction:column;gap:9px}
+.field__label{font-weight:700;font-size:15.5px}
+.req{color:var(--danger)}
+.field__hint{font-size:13px;color:var(--muted)}
+.field__hint--block{margin-top:14px}
+.field--extra{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line);animation:fadeUp .35s var(--ease) both}
+.input{
+  width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  font-size:16px;font-family:inherit;color:var(--dark);background:var(--white);
+  transition:border-color .18s,box-shadow .18s,transform .18s
+}
+.input::placeholder{color:#98A6B8}
+.input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,92,169,.13)}
+.input--lg{padding:16px 17px;font-size:17px}
+.textarea{resize:vertical;min-height:110px;line-height:1.55}
+.callout{
+  background:#EEF6FF;border-left:4px solid var(--blue);border-radius:8px;padding:12px 15px;
+  font-size:14px;color:#0B3A66;margin-bottom:18px;animation:fadeUp .35s var(--ease) both
+}
+
+/* ======================================================= cartões de opção */
+.options{display:grid;gap:12px}
+.options--grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.option{position:relative;display:block;cursor:pointer;animation:fadeUp .42s var(--ease) both}
+.option:nth-child(1){animation-delay:.04s}
+.option:nth-child(2){animation-delay:.09s}
+.option:nth-child(3){animation-delay:.14s}
+.option:nth-child(4){animation-delay:.19s}
+.option:nth-child(5){animation-delay:.24s}
+.option:nth-child(6){animation-delay:.29s}
+.option:nth-child(7){animation-delay:.34s}
+.option:nth-child(8){animation-delay:.39s}
+.option:nth-child(9){animation-delay:.44s}
+.option:nth-child(10){animation-delay:.49s}
+.option input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.option__body{
+  display:flex;align-items:flex-start;gap:13px;padding:16px;border:1.5px solid var(--line);
+  border-radius:var(--radius);background:var(--white);
+  transition:border-color .22s var(--ease),background-color .22s,transform .22s var(--ease),box-shadow .22s
+}
+.option:hover .option__body{border-color:var(--blue-300);transform:translateY(-3px);box-shadow:var(--shadow)}
+.option__icon{
+  flex:0 0 auto;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+  background:rgba(0,92,169,.08);color:var(--blue);transition:transform .28s var(--ease),background-color .22s
+}
+.option__text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.option__text strong{font-size:15px;font-weight:700}
+.option__text small{font-size:13px;color:var(--muted);line-height:1.4}
+.option__mark{
+  flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);
+  margin-left:auto;position:relative;transition:all .22s var(--ease)
+}
+.option--multi .option__mark{border-radius:7px}
+.option input:checked + .option__body{
+  border-color:var(--neon-dark);background:linear-gradient(180deg,rgba(57,255,20,.11),rgba(57,255,20,.03));
+  transform:translateY(-2px);box-shadow:0 10px 26px rgba(57,255,20,.2)
+}
+.option input:checked + .option__body .option__mark{background:var(--neon);border-color:var(--neon-dark)}
+.option input:checked + .option__body .option__mark::after{
+  content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;
+  border:solid #06300F;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0);
+  animation:pop .3s var(--ease) forwards
+}
+.option input:focus-visible + .option__body{outline:3px solid var(--blue);outline-offset:2px}
+.option input:checked + .option__body .option__icon{background:rgba(57,255,20,.22);color:#0B5C1E;transform:scale(1.08)}
+
+/* ================================================================ revisão */
+.review{display:flex;flex-direction:column;gap:2px}
+.review__row{
+  display:grid;grid-template-columns:minmax(150px,200px) 1fr auto;gap:14px;align-items:start;
+  padding:15px 0;border-bottom:1px solid var(--line);animation:fadeUp .4s var(--ease) both
+}
+.review__row:nth-child(1){animation-delay:.05s}
+.review__row:nth-child(2){animation-delay:.1s}
+.review__row:nth-child(3){animation-delay:.15s}
+.review__row:nth-child(4){animation-delay:.2s}
+.review__row:nth-child(5){animation-delay:.25s}
+.review__row:last-child{border-bottom:0}
+.review__label{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.review__value{font-size:15px;min-width:0}
+.review__value strong{font-weight:700}
+.review__extra{margin-top:8px;font-size:14px}
+.pill-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+.pill-list li{
+  background:var(--blue-100);color:#0B3A66;font-size:13px;font-weight:600;padding:5px 11px;border-radius:999px;
+  transition:transform .2s var(--ease)
+}
+.pill-list li:hover{transform:translateY(-2px)}
+.muted{color:var(--muted);font-style:italic}
+.privacy-inline{margin-top:20px;padding:13px 15px;background:var(--light);border-radius:var(--radius-sm);font-size:13px;color:var(--muted)}
+.privacy-note{margin:18px auto 0;max-width:760px;font-size:12.5px;color:var(--muted);text-align:center;line-height:1.6}
+
+/* ================================================================ sucesso */
+.success{text-align:center;padding:44px 28px}
+.success__badge{
+  width:82px;height:82px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;
+  background:rgba(57,255,20,.16);color:#0B5C1E;border:2px solid rgba(57,255,20,.5);
+  animation:pop .5s var(--ease) both, ringPulse 1.8s ease-out .5s 2
+}
+.success__badge svg{width:42px;height:42px;stroke-width:2.4}
+.success__badge svg path{stroke-dasharray:44;stroke-dashoffset:44;animation:drawCheck .7s var(--ease) .35s forwards}
+.success h2{font-size:clamp(23px,5vw,31px);font-weight:800;color:var(--ok);animation:fadeUp .5s var(--ease) .15s both}
+.success p{margin:12px auto 0;color:var(--muted);font-size:15.5px;max-width:520px;animation:fadeUp .5s var(--ease) .22s both}
+.success__summary{margin:26px auto 0;max-width:560px;text-align:left;background:var(--light);border-radius:var(--radius);padding:6px 18px}
+.success__line{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.success__line:last-child{border-bottom:0}
+.success__line span{color:var(--muted);flex:0 0 auto}
+.success__line strong{text-align:right}
+.success__actions{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+.spinner{
+  width:16px;height:16px;border:2.5px solid rgba(4,36,11,.25);border-top-color:#04240B;
+  border-radius:50%;display:inline-block;animation:spin .7s linear infinite
+}
+
+/* ================================================================= footer */
+.footer{
+  margin-top:24px;background:var(--dark);color:#9FB4CC;padding:38px 20px 30px;
+  border-top:3px solid var(--blue)
+}
+.footer__inner{max-width:880px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:9px}
+.footer__brand{color:#fff;font-weight:800;font-size:16px;letter-spacing:-.01em}
+.footer__divider{width:56px;height:3px;border-radius:99px;background:var(--blue);margin:4px auto 6px}
+.footer__copy{font-size:13px;color:#C7D6E8}
+.footer__note{font-size:12px;line-height:1.65;max-width:640px;margin:0 auto}
+.footer__links{margin-top:6px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12.5px}
+.footer__links a{color:#8FB6DC;text-decoration:none;transition:color .2s}
+.footer__links a:hover{color:#fff;text-decoration:underline}
+
+/* ================================================================== ADMIN */
+.admin-top{background:var(--dark);color:#fff;padding:0}
+.admin-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.admin-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;flex-wrap:wrap}
+.admin-head__title{font-size:17px;font-weight:800}
+.admin-head__sub{font-size:12.5px;color:#9FB4CC}
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-main{max-width:1180px;margin:0 auto;padding:26px 20px 72px}
+
+.login{max-width:430px;margin:8vh auto;padding:32px}
+.login__icon{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;background:rgba(0,92,169,.1);color:var(--blue);margin-bottom:18px}
+.login h1{font-size:22px;font-weight:800}
+.login p{margin-top:8px;color:var(--muted);font-size:14.5px}
+.login form{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px}
+.kpi{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px;
+  box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s;animation:fadeUp .45s var(--ease) both
+}
+.kpi:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.kpi__label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:7px}
+.kpi__value{font-size:32px;font-weight:800;margin-top:8px;line-height:1;color:var(--dark)}
+.kpi--neon .kpi__value{color:#0B7A22}
+.kpi--blue .kpi__value{color:var(--blue)}
+.kpi--warn .kpi__value{color:#B26A00}
+.kpi--danger .kpi__value{color:var(--danger)}
+
+.section{margin-top:30px}
+.section__head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.section__head h2{font-size:17px;font-weight:800}
+.section__hint{font-size:13px;color:var(--muted)}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.toolbar label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.toolbar select,.toolbar input{font-family:inherit;font-size:14px;padding:9px 11px;border:1.5px solid var(--line);border-radius:9px;background:#fff;color:var(--dark);min-height:42px}
+.toolbar select:focus,.toolbar input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,92,169,.13)}
+.field-inline{display:flex;flex-direction:column;gap:5px}
+
+.table-wrap{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:920px}
+thead th{
+  text-align:left;padding:13px 14px;background:var(--dark);color:#fff;font-size:11.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;position:sticky;top:0
+}
+tbody td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr{transition:background-color .18s}
+tbody tr:hover{background:#F8FBFE}
+tbody tr:last-child td{border-bottom:0}
+td.col-nome{font-weight:700;white-space:nowrap}
+td.col-tarefas{max-width:330px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.tag--ok{background:rgba(57,255,20,.16);color:#0B7A22}
+.tag--warn{background:#FFF4E0;color:#9A6100}
+.tag--no{background:#FDECEC;color:var(--danger)}
+.tag--info{background:var(--blue-100);color:var(--blue)}
+.tag-list{display:flex;flex-wrap:wrap;gap:5px}
+.tag-list .tag{font-weight:600;font-size:11.5px}
+.row-actions{display:flex;gap:6px;white-space:nowrap}
+
+.tasks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.task-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:16px;
+  box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s;animation:fadeUp .45s var(--ease) both
+}
+.task-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.task-card--empty{border-color:#F0C36D;background:#FFFBF2}
+.task-card__top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.task-card__name{font-size:14.5px;font-weight:700}
+.task-card__count{font-size:12px;font-weight:800;color:#0B7A22;background:rgba(57,255,20,.18);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.task-card--empty .task-card__count{color:#9A6100;background:#FFF4E0}
+.task-card__people{margin:11px 0 0;font-size:13px;color:var(--muted);line-height:1.6}
+.task-card__bar{height:6px;border-radius:99px;background:var(--light);margin-top:12px;overflow:hidden}
+.task-card__bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue-300),var(--neon));transition:width .6s var(--ease)}
+
+.empty{padding:44px 20px;text-align:center;color:var(--muted)}
+.empty strong{display:block;color:var(--dark);font-size:16px;margin-bottom:6px}
+
+.alert{margin:0 0 16px;padding:13px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;animation:fadeUp .3s var(--ease) both}
+.alert--error{background:#FDECEC;border:1px solid #F5C6C6;color:var(--danger)}
+.alert--ok{background:#EAF3FB;border:1px solid #BBD8EF;color:#0B3A66}
+.alert--warn{background:#FFF7E6;border:1px solid #F0C36D;color:#6B4A00}
+
+.skeleton{height:14px;border-radius:6px;background:linear-gradient(90deg,#EDF2F7,#F7FAFC,#EDF2F7);background-size:200% 100%;animation:sk 1.3s linear infinite}
+
+.success__wish{
+  margin:16px auto 0;display:inline-block;padding:10px 22px;border-radius:999px;
+  background:rgba(57,255,20,.16);color:#0B5C1E;font-weight:800;font-size:15.5px;
+  border:1px solid rgba(57,255,20,.5);animation:fadeUp .5s var(--ease) .3s both
+}
+
+/* ================================================ seções do formulário */
+.qsection{padding:24px 0;border-bottom:1px solid var(--line);animation:fadeUp .45s var(--ease) both}
+.qsection:first-child{padding-top:4px}
+.qsection:last-of-type{border-bottom:0}
+.qsection[hidden]{display:none}
+.qsection__head{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+.qsection__num{
+  flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:var(--blue-100);color:var(--blue);font-weight:800;font-size:14px;
+  transition:background-color .25s,color .25s,transform .25s var(--ease)
+}
+.qsection.is-done .qsection__num{background:var(--neon);color:#06300F;transform:scale(1.06)}
+.qsection__title{font-size:17px;font-weight:800;color:var(--dark)}
+.qsection__desc{margin-top:5px;font-size:14px;color:var(--muted);line-height:1.55}
+.qsection.has-error{padding-left:14px;border-left:4px solid var(--danger);background:#FFF9F9}
+.qsection__erro{
+  margin-top:12px;padding:11px 14px;border-radius:var(--radius-sm);background:#FDECEC;
+  border:1px solid #F5C6C6;color:var(--danger);font-size:13.5px;font-weight:600;
+  animation:fadeUp .3s var(--ease) both
+}
+
+/* ================================================================ diálogo */
+.dialog{
+  border:0;padding:0;border-radius:var(--radius);max-width:520px;width:calc(100% - 32px);
+  box-shadow:0 24px 60px rgba(7,27,51,.34);background:var(--white)
+}
+.dialog[open]{position:fixed;inset:0;margin:auto;z-index:80;height:fit-content;animation:pop .32s var(--ease) both}
+.dialog::backdrop{background:rgba(7,27,51,.58);animation:fadeIn .25s ease both}
+.dialog__body{padding:30px 26px 24px;text-align:center}
+.dialog__icon{
+  width:62px;height:62px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;
+  background:rgba(57,255,20,.18);color:#0B5C1E;border:2px solid rgba(57,255,20,.5)
+}
+.dialog__body h3{font-size:20px;font-weight:800;color:var(--dark)}
+.dialog__body p{margin-top:10px;color:var(--muted);font-size:14.5px;line-height:1.6}
+.dialog__summary{margin-top:18px;text-align:left;background:var(--light);border-radius:var(--radius-sm);padding:12px 15px;font-size:13.5px;line-height:1.7}
+.dialog__actions{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.dialog__actions .btn{min-width:158px}
+@media (max-width:520px){.dialog__actions .btn{width:100%;min-width:0}}
+
+/* ============================================================ responsivo */
+@media (max-width:720px){
+  .card{padding:22px 18px;border-radius:14px}
+  .review__row{grid-template-columns:1fr;gap:6px}
+  .review__row .btn--mini{justify-self:start}
+  .form__footer{flex-direction:column-reverse}
+  .form__footer .btn{width:100%}
+  .hero{padding:34px 0 4px}
+  .info-grid{margin-top:26px}
+  .success{padding:32px 18px}
+  .brand__text small{display:none}
+  .topbar__badge{font-size:10px;padding:6px 9px}
+  table{min-width:820px}
+  .timer{font-size:12.5px;padding:8px 14px}
+}
+@media (max-width:380px){
+  .topbar__badge{display:none}
+  .timer__track{display:none}
+}
+@media print{
+  .topbar,.progress,.timer,.admin-actions,.toolbar,.form__footer,.footer{display:none!important}
+}
+
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071B33'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='30' font-weight='bold' text-anchor='middle' fill='%2339FF14'%3ECS%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="#" id="brandHome" aria-label="Voltar ao início">
+      <span class="brand__mark" aria-hidden="true">CS</span>
+      <span class="brand__text">
+        <strong>Formulário de Confraternização</strong>
+        <small>SENAI · Assistente de Logística</small>
+      </span>
+    </a>
+    <span class="topbar__badge" title="Data do evento">11 · DEZ · 2026</span>
+  </div>
+  <div class="progress" id="progressWrap" hidden>
+    <div class="progress__meta">
+      <span id="progressLabel">Etapa 1 de 6</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress__track" role="progressbar" aria-labelledby="progressLabel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+      <div class="progress__fill" id="progressFill"></div>
+    </div>
+  </div>
+</header>
+
+<div class="config-warning" id="configWarning" hidden role="status">
+  <strong>Banco de dados não configurado.</strong>
+  <span>Este site ainda não está conectado à planilha de respostas. Nenhuma resposta será salva permanentemente até que a URL do serviço seja configurada em <code>assets/js/config.js</code>.</span>
+</div>
+
+<main id="conteudo">
+
+  <!-- ============================= HOME ============================= -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <p class="hero__eyebrow">Organização da turma</p>
+      <h1>Confraternização SENAI 2026</h1>
+      <p class="hero__subtitle">
+        Vamos organizar nossa confraternização de fim de ano. Responda ao formulário para informar
+        sua participação e como poderá contribuir.
+      </p>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <span class="info-card__icon" data-icon="calendar" aria-hidden="true"></span>
+          <h2>Data</h2>
+          <p>11 de dezembro de 2026</p>
+        </article>
+        <article class="info-card">
+          <span class="info-card__icon" data-icon="users" aria-hidden="true"></span>
+          <h2>Público</h2>
+          <p>Alunos da turma de Assistente de Logística</p>
+        </article>
+        <article class="info-card">
+          <span class="info-card__icon" data-icon="target" aria-hidden="true"></span>
+          <h2>Finalidade</h2>
+          <p>Organizar a participação e dividir as responsabilidades</p>
+        </article>
+      </div>
+
+      <div class="hero__actions">
+        <button class="btn btn--primary btn--lg" id="btnStart" type="button">
+          Responder formulário
+          <span class="btn__icon" data-icon="arrow-right" aria-hidden="true"></span>
+        </button>
+        <p class="hero__hint">Leva cerca de 2 minutos · funciona bem no celular</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= FORM ============================= -->
+  <section class="view" id="view-form" hidden>
+    <div class="timer" id="timer" role="timer" aria-live="off">
+      <span class="timer__icon" data-icon="clock" aria-hidden="true"></span>
+      <span class="timer__label" id="timerLabel">Tempo estimado para responder</span>
+      <strong class="timer__value" id="timerValue">1:00:00</strong>
+      <span class="timer__track" aria-hidden="true"><span class="timer__fill" id="timerFill"></span></span>
+    </div>
+
+    <form class="card form" id="form" novalidate>
+      <div class="form__head">
+        <p class="form__step">Formulário de organização</p>
+        <h2 class="form__title">Confraternização SENAI 2026</h2>
+        <p class="form__desc">
+          Responda tudo nesta página — as perguntas aparecem conforme as suas respostas.
+          Leva cerca de 2 minutos.
+        </p>
+      </div>
+
+      <div class="form__body" id="formBody"></div>
+
+      <p class="form__error" id="formError" role="alert" aria-live="assertive" hidden></p>
+
+      <p class="privacy-inline">
+        Suas respostas serão utilizadas para organizar a confraternização da turma. As informações serão
+        acessadas apenas pelas pessoas responsáveis pela organização e não devem ser compartilhadas
+        publicamente sem necessidade.
+      </p>
+
+      <div class="form__footer">
+        <button class="btn btn--ghost" id="btnReset" type="button">Limpar respostas</button>
+        <button class="btn btn--primary btn--lg" id="btnSubmit" type="button">
+          Enviar respostas
+          <span class="btn__icon" data-icon="check" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================= SUCCESS ============================= -->
+  <section class="view" id="view-success" hidden>
+    <div class="card success">
+      <div class="success__badge" aria-hidden="true">
+        <span data-icon="check"></span>
+      </div>
+      <h2>Resposta registrada!</h2>
+      <p>Obrigado por responder. Suas informações ajudarão a organizar melhor nossa confraternização.</p>
+      <div class="success__wish">Te vejo no dia 11 de dezembro! 🎉</div>
+      <div class="success__summary" id="successSummary"></div>
+      <div class="success__actions">
+        <button class="btn btn--primary" id="btnNewResponse" type="button">Responder novamente</button>
+        <button class="btn btn--ghost" id="btnBackHome" type="button">Voltar ao início</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NOTIFICAÇÃO DE CONFIRMAÇÃO ==================== -->
+  <dialog id="confirmDialog" class="dialog" aria-labelledby="confirmTitle">
+    <div class="dialog__body">
+      <div class="dialog__icon" aria-hidden="true"><span data-icon="help"></span></div>
+      <h3 id="confirmTitle">Confirmar suas respostas?</h3>
+      <p>
+        Confira o resumo acima. Você pode confirmar agora ou voltar e alterar o que precisar —
+        nada é enviado até você confirmar.
+      </p>
+      <div class="dialog__summary" id="confirmSummary"></div>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" type="button" id="btnConfirmChange">Quero alterar algo</button>
+        <button class="btn btn--primary" type="button" id="btnConfirmYes">Sim, confirmar</button>
+      </div>
+    </div>
+  </dialog>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <p class="footer__brand">Formulário de Confraternização · SENAI 2026</p>
+    <span class="footer__divider" aria-hidden="true"></span>
+    <p class="footer__copy">© 2026 Turma de Assistente de Logística — SENAI. Todos os direitos reservados.</p>
+    <p class="footer__note">
+      Este site foi desenvolvido e organizado pela própria turma para uso interno na organização da
+      confraternização de 11 de dezembro de 2026. Não é uma plataforma oficial do SENAI e não utiliza
+      o logotipo oficial da instituição.
+    </p>
+    <p class="footer__note">
+      Suas respostas serão utilizadas apenas para organizar a confraternização da turma, não serão
+      compartilhadas publicamente e podem ser corrigidas ou excluídas pela organização a qualquer momento.
+    </p>
+    <nav class="footer__links" aria-label="Links do rodapé">
+      <a href="#conteudo">Início</a>
+      <a href="#conteudo" id="footerForm">Responder formulário</a>
+      <span style="color:#5C7FA6">Projeto da turma · v1.1</span>
+    </nav>
+  </div>
+</footer>
+
+<script>
+
+/* ===== assets/js/config.js ===== */
+/* =============================================================================
+ * config.js — Configuração do site
+ * -----------------------------------------------------------------------------
+ * Preencha API_URL com a URL do Web App do Google Apps Script (ver README.md).
+ * Enquanto API_URL estiver vazia, o site exibe um aviso e NÃO simula gravação:
+ * nenhuma resposta é salva permanentemente.
+ * ========================================================================== */
+window.CONF_CONFIG = {
+  /* URL do Web App do Apps Script — termina em /exec
+   * Ex.: "https://script.google.com/macros/s/AKfycb.../exec"            */
+  API_URL: "https://script.google.com/macros/s/AKfycbxAsQ5uokdOpkrZUrWMbhs8EsZAuia1xbdNcRmudKOy0bvgNr8Io1KkW4u8C6EyZWRr/exec",
+
+  /* Documentos criados para este projeto */
+  SHEET_URL: "https://docs.google.com/spreadsheets/d/1sJuuv_GuPQY02B1D9c8kxYqLlv8mAi9JoH9xfkj0S-Q/edit",
+  /* Relatório no Google Docs: DESATIVADO a pedido da organização.
+     A organização usa apenas a planilha, em ordem alfabética. */
+  DOC_URL: "",
+
+  /* Dados do evento */
+  EVENT_DATE_ISO: "2026-12-11",
+  EVENT_DATE_LABEL: "11 de dezembro de 2026",
+  CLASS_NAME: "Assistente de Logística"
+};
+
+
+/* ===== assets/js/data.js ===== */
+/* =============================================================================
+ * data.js — Esquema compartilhado (valores padronizados, rótulos e ícones)
+ * Usado pelo formulário (app.js) e pelo painel (admin.js).
+ * Os VALORES (keys) são os que vão para a planilha e para os relatórios.
+ * ========================================================================== */
+(function () {
+  "use strict";
+
+  var PARTICIPACAO = [
+    {
+      value: "sim_participo",
+      label: "Sim, pretendo participar",
+      short: "Confirmado",
+      desc: "Conto com você no dia 11 de dezembro.",
+      icon: "check"
+    },
+    {
+      value: "indeciso",
+      label: "Ainda não tenho certeza",
+      short: "Indeciso",
+      desc: "Fica registrado como pendente de confirmação.",
+      icon: "clock"
+    },
+    {
+      value: "nao_participo",
+      label: "Não poderei participar",
+      short: "Não participa",
+      desc: "Vamos registrar o motivo da ausência apenas se você quiser.",
+      icon: "x"
+    }
+  ];
+
+  var AJUDA = [
+    {
+      value: "sim_ajudo",
+      label: "Sim, posso ajudar",
+      short: "Disponível",
+      desc: "Você entra na lista de voluntários por tarefa.",
+      icon: "hand"
+    },
+    {
+      value: "talvez_ajudo",
+      label: "Talvez, dependendo da tarefa",
+      short: "Talvez",
+      desc: "Vamos mostrar as tarefas para você escolher.",
+      icon: "help"
+    },
+    {
+      value: "nao_ajudo",
+      label: "Não poderei ajudar na organização",
+      short: "Não ajuda",
+      desc: "Sem problema — sua resposta de participação já nos ajuda.",
+      icon: "x"
+    }
+  ];
+
+  /* requerPresenca: tarefas que dependem de estar no evento.
+   * Quem não vai participar não vê essas opções. */
+  var TAREFAS = [
+    { value: "organizacao_decoracao", label: "Organização e decoração do espaço", desc: "Montar, decorar e ambientar o local.", icon: "sparkles", requerPresenca: true },
+    { value: "limpeza", label: "Limpeza e organização antes ou depois do evento", desc: "Deixar tudo limpo antes e depois.", icon: "broom", requerPresenca: true },
+    { value: "alimentacao", label: "Alimentação e distribuição dos alimentos", desc: "Organizar e servir a comida.", icon: "food", requerPresenca: true },
+    { value: "bebidas", label: "Bebidas, copos, pratos e utensílios", desc: "Garantir bebidas e descartáveis.", icon: "cup", requerPresenca: true },
+    { value: "brincadeiras", label: "Organização de brincadeiras e dinâmicas", desc: "Planejar e conduzir as atividades.", icon: "game", requerPresenca: true },
+    { value: "musica_som", label: "Música e som", desc: "Playlist, caixa de som e microfone.", icon: "music", requerPresenca: true },
+    { value: "arrecadacao", label: "Arrecadação ou controle das contribuições financeiras", desc: "Caso a turma decida organizar isso.", icon: "coins", requerPresenca: false },
+    { value: "compra_transporte", label: "Compra e transporte de materiais", desc: "Comprar e levar os materiais.", icon: "truck", requerPresenca: false },
+    { value: "planejamento", label: "Planejamento e coordenação geral", desc: "Organizar prazos, listas e contatos.", icon: "clipboard", requerPresenca: false },
+    { value: "outra", label: "Outra atividade", desc: "Descreva abaixo qual atividade você pode assumir.", icon: "plus", requerPresenca: false }
+  ];
+
+  var ICONS = {
+    check: '<path d="M20 6L9 17l-5-5"/>',
+    x: '<path d="M18 6L6 18M6 6l12 12"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    help: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 113.5 2.3c-.7.4-1 .9-1 1.7v.3"/><path d="M12 17h.01"/>',
+    hand: '<path d="M18 11V6a2 2 0 10-4 0v5"/><path d="M14 10V4a2 2 0 10-4 0v6"/><path d="M10 10.5V6a2 2 0 10-4 0v9"/><path d="M18 8a2 2 0 114 0v6a8 8 0 01-8 8h-2a8 8 0 01-8-8v-1"/>',
+    calendar: '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/>',
+    users: '<path d="M16 20v-1a4 4 0 00-4-4H6a4 4 0 00-4 4v1"/><circle cx="9" cy="8" r="3.5"/><path d="M22 20v-1a4 4 0 00-3-3.85"/><path d="M16.5 4.6a3.5 3.5 0 010 6.8"/>',
+    target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+    "arrow-right": '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    sparkles: '<path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/>',
+    broom: '<path d="M14 4l6 6"/><path d="M12.5 5.5l6 6-6.5 6.5a3 3 0 01-4.2 0l-1.8-1.8a3 3 0 010-4.2z"/><path d="M8 20l-4 1 1-4"/>',
+    food: '<path d="M4 3v7a3 3 0 006 0V3"/><path d="M7 10v11"/><path d="M17 3c-1.7 0-3 1.6-3 3.5S15.3 10 17 10v11"/>',
+    cup: '<path d="M5 4h11v8a5.5 5.5 0 01-11 0z"/><path d="M16 6h2.5a2.5 2.5 0 010 5H16"/><path d="M4 21h13"/>',
+    game: '<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11" r="1"/><circle cx="18.5" cy="13.5" r="1"/>',
+    music: '<circle cx="7" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M10 18V7l11-2v11"/>',
+    coins: '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',
+    truck: '<path d="M3 6h11v10H3z"/><path d="M14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+    clipboard: '<rect x="6" y="4" width="12" height="17" rx="2.5"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h4"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    trash: '<path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7l1 13h10l1-13"/>',
+    download: '<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',
+    lock: '<rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/>',
+    refresh: '<path d="M20 11a8 8 0 10-2.6 6.3"/><path d="M20 5v6h-6"/>',
+    filter: '<path d="M3 5h18l-7 8v6l-4 2v-8z"/>'
+  };
+
+  function icon(name, size) {
+    var d = ICONS[name] || ICONS.check;
+    var s = size || 20;
+    return '<svg viewBox="0 0 24 24" width="' + s + '" height="' + s + '" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + d + "</svg>";
+  }
+
+  function byValue(list, value) {
+    for (var i = 0; i < list.length; i++) if (list[i].value === value) return list[i];
+    return null;
+  }
+
+  function labels(list, values) {
+    values = values || [];
+    return values.map(function (v) {
+      var it = byValue(list, v);
+      return it ? it.label : v;
+    });
+  }
+
+  window.CONF_DATA = {
+    PARTICIPACAO: PARTICIPACAO,
+    AJUDA: AJUDA,
+    TAREFAS: TAREFAS,
+    ICONS: ICONS,
+    icon: icon,
+    byValue: byValue,
+    labels: labels,
+    participacaoLabel: function (v) { var i = byValue(PARTICIPACAO, v); return i ? i.label : (v || "—"); },
+    ajudaLabel: function (v) { var i = byValue(AJUDA, v); return i ? i.label : (v || "—"); },
+    tarefaLabels: function (values) { return labels(TAREFAS, values); },
+    tarefasDisponiveis: function (participacao) {
+      return TAREFAS.filter(function (t) {
+        return participacao === "nao_participo" ? !t.requerPresenca : true;
+      });
+    }
+  };
+})();
+
+
+/* ===== assets/js/api.js ===== */
+/* =============================================================================
+ * api.js — Camada de comunicação com o backend (Google Apps Script Web App)
+ * -----------------------------------------------------------------------------
+ * Usa POST com Content-Type text/plain (requisição simples) para evitar o
+ * preflight de CORS, que o Apps Script não responde. O token de sessão do
+ * painel vai no corpo, nunca em cabeçalhos.
+ * ========================================================================== */
+(function () {
+  "use strict";
+
+  var cfg = window.CONF_CONFIG || {};
+
+  function isConfigured() {
+    return typeof cfg.API_URL === "string" && /^https?:\/\//.test(cfg.API_URL);
+  }
+
+  function notConfiguredError() {
+    var e = new Error(
+      "O banco de dados ainda não está configurado. Preencha API_URL em assets/js/config.js " +
+      "com a URL do Web App do Apps Script para que as respostas sejam salvas."
+    );
+    e.code = "NOT_CONFIGURED";
+    return e;
+  }
+
+  function request(payload, opts) {
+    opts = opts || {};
+    if (!isConfigured()) return Promise.reject(notConfiguredError());
+
+    var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timer = setTimeout(function () { if (controller) controller.abort(); }, opts.timeout || 25000);
+
+    return fetch(cfg.API_URL, {
+      method: "POST",
+      // text/plain => "simple request", sem preflight
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+      redirect: "follow",
+      signal: controller ? controller.signal : undefined
+    })
+      .then(function (res) {
+        return res.text().then(function (txt) {
+          var data;
+          try { data = JSON.parse(txt); } catch (e) {
+            throw new Error("Resposta inválida do servidor. Verifique se o Web App foi publicado com acesso para qualquer pessoa.");
+          }
+          if (!res.ok) throw new Error(data && data.message ? data.message : "Falha na comunicação com o servidor (" + res.status + ").");
+          if (data && data.ok === false) {
+            var err = new Error(data.message || "O servidor recusou a solicitação.");
+            err.code = data.code || "SERVER_ERROR";
+            err.details = data.errors || null;
+            throw err;
+          }
+          return data;
+        });
+      })
+      .catch(function (err) {
+        if (err && err.name === "AbortError") throw new Error("O servidor demorou para responder. Verifique sua conexão e tente novamente.");
+        if (err && err.message) throw err;
+        throw new Error("Não foi possível enviar os dados. Verifique sua conexão e tente novamente.");
+      })
+      .finally(function () { clearTimeout(timer); });
+  }
+
+  window.CONF_API = {
+    isConfigured: isConfigured,
+    submit: function (resposta) {
+      return request({ action: "submit", resposta: resposta });
+    },
+    login: function (usuario, senha) {
+      return request({ action: "login", usuario: usuario, senha: senha });
+    },
+    logout: function (token) {
+      return request({ action: "logout", token: token });
+    },
+    listar: function (token) {
+      return request({ action: "list", token: token });
+    },
+    excluir: function (token, id) {
+      return request({ action: "delete", token: token, id: id });
+    },
+    atualizar: function (token, id, patch) {
+      return request({ action: "update", token: token, id: id, resposta: patch });
+    },
+    sincronizarDoc: function (token) {
+      return request({ action: "syncDoc", token: token }, { timeout: 60000 });
+    },
+    csv: function (token) {
+      return request({ action: "csv", token: token }, { timeout: 60000 });
+    }
+  };
+})();
+
+
+/* ===== assets/js/app.js ===== */
+/* =============================================================================
+ * app.js — Formulário de Confraternização SENAI 2026
+ * Formulário de PÁGINA ÚNICA: todas as perguntas na mesma tela, com seções
+ * condicionais que aparecem conforme as respostas.
+ * ========================================================================== */
+(function () {
+  "use strict";
+
+  var D = window.CONF_DATA;
+  var API = window.CONF_API;
+  var CFG = window.CONF_CONFIG || {};
+
+  /* ---------------------------------------------------------------- estado */
+  var state = {
+    nome: "",
+    participacao: null,
+    ajuda: null,
+    tarefas: [],
+    outraAtividade: "",
+    observacao: ""
+  };
+
+  var sending = false;
+  var confirmando = false;
+  var tarefasFiltroAtual = undefined;
+
+  var el = {
+    home: document.getElementById("view-home"),
+    form: document.getElementById("view-form"),
+    success: document.getElementById("view-success"),
+    formBody: document.getElementById("formBody"),
+    formError: document.getElementById("formError"),
+    btnSubmit: document.getElementById("btnSubmit"),
+    btnReset: document.getElementById("btnReset"),
+    progressWrap: document.getElementById("progressWrap"),
+    progressBar: document.getElementById("progressBar"),
+    progressFill: document.getElementById("progressFill"),
+    progressLabel: document.getElementById("progressLabel"),
+    progressPct: document.getElementById("progressPct"),
+    configWarning: document.getElementById("configWarning"),
+    successSummary: document.getElementById("successSummary"),
+    timer: document.getElementById("timer"),
+    timerLabel: document.getElementById("timerLabel"),
+    timerValue: document.getElementById("timerValue"),
+    timerFill: document.getElementById("timerFill")
+  };
+
+  /* --------------------------------------------------------------- helpers */
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function normalizeName(v) {
+    return String(v || "").replace(/\s+/g, " ").trim();
+  }
+
+  function limparTexto(v, max) {
+    var s = String(v == null ? "" : v).replace(/\s+/g, " ").trim();
+    return max && s.length > max ? s.slice(0, max) : s;
+  }
+
+  /* ------------------------------------------------------------ cronômetro */
+  var TIMER_SEGUNDOS = 3600;   // 1 hora
+  var TIMER_ALERTA = 300;      // últimos 5 minutos
+  var timerId = null;
+  var timerRestante = TIMER_SEGUNDOS;
+
+  /** Formata segundos como h:mm:ss (ou m:ss quando falta menos de 1 hora). */
+  function formatarTempo(total) {
+    var t = Math.max(total, 0);
+    var h = Math.floor(t / 3600);
+    var m = Math.floor((t % 3600) / 60);
+    var s = t % 60;
+    var mm = (m < 10 ? "0" : "") + m;
+    var ss = (s < 10 ? "0" : "") + s;
+    return h > 0 ? h + ":" + mm + ":" + ss : m + ":" + ss;
+  }
+
+  function pintarTimer() {
+    if (!el.timerValue) return;
+    el.timerValue.textContent = formatarTempo(timerRestante);
+    if (el.timerFill) el.timerFill.style.width = Math.max(0, (timerRestante / TIMER_SEGUNDOS) * 100) + "%";
+
+    el.timer.classList.toggle("is-low", timerRestante > 0 && timerRestante <= TIMER_ALERTA);
+    el.timer.classList.toggle("is-over", timerRestante <= 0);
+
+    if (timerRestante <= 0 && el.timerLabel) {
+      el.timerLabel.textContent = "Tempo esgotado — mas pode continuar sem pressa, é só uma referência.";
+    }
+  }
+
+  function pararTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; }
+  }
+
+  function iniciarTimer() {
+    pararTimer();
+    timerRestante = TIMER_SEGUNDOS;
+    if (el.timerLabel) el.timerLabel.textContent = "Tempo estimado para responder";
+    pintarTimer();
+    timerId = setInterval(function () {
+      timerRestante--;
+      pintarTimer();
+      if (timerRestante <= 0) pararTimer();
+    }, 1000);
+  }
+
+  /* ------------------------------------------------- lógica de visibilidade */
+  function podeAjudarFlag() {
+    return state.ajuda === "sim_ajudo" || state.ajuda === "talvez_ajudo";
+  }
+
+  function naoVaiParticipar() {
+    return state.participacao === "nao_participo";
+  }
+
+  function tarefasDisponiveis() {
+    return D.tarefasDisponiveis(state.participacao);
+  }
+
+  function sanitize() {
+    var permitidas = tarefasDisponiveis().map(function (t) { return t.value; });
+    state.tarefas = state.tarefas.filter(function (v) { return permitidas.indexOf(v) !== -1; });
+  }
+
+  function nomeValido() {
+    var n = normalizeName(state.nome);
+    return n.length >= 3 && n.split(" ").length >= 2;
+  }
+
+  /* ------------------------------------------------------------ componentes */
+  function choiceCards(name, options, selected, legend) {
+    var html = '<fieldset class="fieldset"><legend class="sr-only">' + esc(legend) + '</legend><div class="options">';
+    options.forEach(function (o) {
+      var checked = selected === o.value;
+      html +=
+        '<label class="option' + (checked ? " is-selected" : "") + '">' +
+        '<input type="radio" name="' + name + '" value="' + o.value + '"' + (checked ? " checked" : "") + " />" +
+        '<span class="option__body">' +
+        '<span class="option__icon">' + D.icon(o.icon, 22) + "</span>" +
+        '<span class="option__text"><strong>' + esc(o.label) + "</strong>" +
+        (o.desc ? "<small>" + esc(o.desc) + "</small>" : "") + "</span>" +
+        '<span class="option__mark" aria-hidden="true"></span>' +
+        "</span></label>";
+    });
+    return html + "</div></fieldset>";
+  }
+
+  function taskCards() {
+    var options = tarefasDisponiveis();
+    var html = '<fieldset class="fieldset"><legend class="sr-only">Com quais atividades você poderia contribuir?</legend>' +
+      '<div class="options options--grid">';
+    options.forEach(function (t) {
+      var checked = state.tarefas.indexOf(t.value) !== -1;
+      html +=
+        '<label class="option option--multi' + (checked ? " is-selected" : "") + '">' +
+        '<input type="checkbox" name="tarefas" value="' + t.value + '"' + (checked ? " checked" : "") + " />" +
+        '<span class="option__body">' +
+        '<span class="option__icon">' + D.icon(t.icon, 22) + "</span>" +
+        '<span class="option__text"><strong>' + esc(t.label) + "</strong><small>" + esc(t.desc) + "</small></span>" +
+        '<span class="option__mark" aria-hidden="true"></span>' +
+        "</span></label>";
+    });
+    return html + "</div></fieldset>";
+  }
+
+  function campoOutra() {
+    var visivel = state.tarefas.indexOf("outra") !== -1;
+    return '<div class="field field--extra" id="outraWrap"' + (visivel ? "" : " hidden") + ">" +
+      '<label class="field__label" for="outraAtividade">Qual outra atividade?</label>' +
+      '<input class="input" id="outraAtividade" name="outraAtividade" type="text" maxlength="180" ' +
+      'placeholder="Ex.: levar as caixas de som, cuidar das fotos…" value="' + esc(state.outraAtividade) + '" />' +
+      '<p class="field__hint">Opcional. Descreva brevemente a atividade que você pode assumir.</p>' +
+      "</div>";
+  }
+
+  function tarefasHtml() {
+    return taskCards() + campoOutra();
+  }
+
+  function secao(id, titulo, descricao, conteudo) {
+    return '<section class="qsection" id="sec-' + id + '" data-sec="' + id + '" aria-labelledby="ttl-' + id + '">' +
+      '<header class="qsection__head">' +
+      '<span class="qsection__num" aria-hidden="true">1</span>' +
+      '<div><h3 class="qsection__title" id="ttl-' + id + '">' + titulo + "</h3>" +
+      (descricao ? '<p class="qsection__desc">' + descricao + "</p>" : "") +
+      "</div></header>" +
+      '<div class="qsection__body">' + conteudo + "</div>" +
+      '<p class="qsection__erro" id="erro-' + id + '" role="alert" hidden></p>' +
+      "</section>";
+  }
+
+  /* ------------------------------------------------------------ renderização */
+  function buildForm() {
+    el.formBody.innerHTML =
+      secao("identificacao", "Identificação",
+        "Usamos apenas o seu nome para organizar as respostas. Nenhum outro dado pessoal é solicitado.",
+        '<div class="field">' +
+        '<label class="field__label" for="nome">Qual é o seu nome completo? <span class="req" aria-hidden="true">*</span></label>' +
+        '<input class="input input--lg" id="nome" name="nome" type="text" autocomplete="name" maxlength="120" ' +
+        'placeholder="Digite seu nome completo" value="' + esc(state.nome) + '" aria-required="true" />' +
+        '<p class="field__hint">Obrigatório. Não pedimos e-mail, telefone, CPF ou data de nascimento.</p>' +
+        "</div>") +
+
+      secao("participacao", "Participação",
+        "Você pretende participar da confraternização no dia 11 de dezembro?",
+        choiceCards("participacao", D.PARTICIPACAO, state.participacao, "Participação na confraternização")) +
+
+      secao("ajuda", "Disponibilidade para ajudar",
+        '<span id="ajudaDesc">Você poderá ajudar na organização da confraternização?</span>',
+        choiceCards("ajuda", D.AJUDA, state.ajuda, "Disponibilidade para ajudar")) +
+
+      secao("tarefas", "Seleção de tarefas",
+        '<span id="tarefasDesc">Com quais atividades você poderia contribuir? Você pode escolher mais de uma.</span>',
+        '<div id="tarefasWrap">' + tarefasHtml() + "</div>") +
+
+      secao("condicao", "Disponibilidade complementar",
+        "Existe alguma condição que precisamos considerar para organizar sua participação?",
+        '<div class="field">' +
+        '<label class="field__label" for="observacao">Observação (opcional)</label>' +
+        '<textarea class="input textarea" id="observacao" name="observacao" maxlength="600" rows="4" ' +
+        'placeholder="Informe se sua disponibilidade depende de horário, transporte ou outra condição relevante.">' +
+        esc(state.observacao) + "</textarea>" +
+        '<p class="field__hint field__hint--block">Não inclua dados pessoais desnecessários neste campo. ' +
+        "Não solicite informações médicas, financeiras ou sensíveis.</p></div>");
+
+    tarefasFiltroAtual = state.participacao;
+    sync();
+  }
+
+  /** Mostra/esconde seções condicionais e atualiza indicadores. */
+  function sync() {
+    var secAjuda = document.getElementById("sec-ajuda");
+    var secTarefas = document.getElementById("sec-tarefas");
+    var naoVai = naoVaiParticipar();
+
+    if (secAjuda) {
+      secAjuda.hidden = !state.participacao;
+      var titulo = document.getElementById("ttl-ajuda");
+      var desc = document.getElementById("ajudaDesc");
+      if (titulo) titulo.textContent = naoVai ? "Ajuda mesmo sem participar" : "Disponibilidade para ajudar";
+      if (desc) {
+        desc.textContent = naoVai
+          ? "Você ainda poderá ajudar de alguma forma na organização? Vamos mostrar apenas tarefas que não exigem presença no evento."
+          : "Você poderá ajudar na organização da confraternização?";
+      }
+    }
+
+    if (secTarefas) secTarefas.hidden = !podeAjudarFlag();
+
+    if (podeAjudarFlag() && tarefasFiltroAtual !== state.participacao) {
+      var wrap = document.getElementById("tarefasWrap");
+      if (wrap) wrap.innerHTML = tarefasHtml();
+      tarefasFiltroAtual = state.participacao;
+      var descT = document.getElementById("tarefasDesc");
+      if (descT) {
+        descT.textContent = naoVai
+          ? "Com quais atividades você poderia contribuir? Estas tarefas podem ser feitas sem estar presente no dia do evento."
+          : "Com quais atividades você poderia contribuir? Você pode escolher mais de uma.";
+      }
+    }
+
+    var outraWrap = document.getElementById("outraWrap");
+    if (outraWrap) outraWrap.hidden = state.tarefas.indexOf("outra") === -1;
+
+    renumber();
+    pintarProgresso();
+    marcarConcluidas();
+  }
+
+  function renumber() {
+    var n = 0;
+    el.formBody.querySelectorAll(".qsection").forEach(function (sec) {
+      if (sec.hidden) return;
+      n++;
+      var badge = sec.querySelector(".qsection__num");
+      if (badge) badge.textContent = String(n);
+    });
+  }
+
+  function pintarProgresso() {
+    var itens = [nomeValido(), !!state.participacao, !!state.ajuda];
+    var feitos = itens.filter(Boolean).length;
+    var pct = Math.round((feitos / itens.length) * 100);
+
+    if (el.progressLabel) {
+      el.progressLabel.textContent = pct === 100 ? "Tudo preenchido — confira e envie" : "Preenchimento do formulário";
+    }
+    if (el.progressPct) el.progressPct.textContent = pct + "%";
+    if (el.progressFill) el.progressFill.style.width = pct + "%";
+    if (el.progressBar) el.progressBar.setAttribute("aria-valuenow", String(pct));
+  }
+
+  function marcarConcluidas() {
+    marcar("sec-identificacao", nomeValido());
+    marcar("sec-participacao", !!state.participacao);
+    marcar("sec-ajuda", !!state.ajuda);
+  }
+
+  function marcar(id, feito) {
+    var s = document.getElementById(id);
+    if (s) s.classList.toggle("is-done", !!feito);
+  }
+
+  /* -------------------------------------------------------------- validação */
+  function collect() {
+    var nomeEl = document.getElementById("nome");
+    if (nomeEl) state.nome = normalizeName(nomeEl.value);
+    var obs = document.getElementById("observacao");
+    if (obs) state.observacao = limparTexto(obs.value, 600);
+    var outra = document.getElementById("outraAtividade");
+    if (outra) state.outraAtividade = normalizeName(outra.value);
+  }
+
+  function validar() {
+    var erros = [];
+    var nome = normalizeName(state.nome);
+    if (!nome) erros.push({ campo: "identificacao", msg: "Informe seu nome completo." });
+    else if (nome.length < 3) erros.push({ campo: "identificacao", msg: "O nome informado é muito curto. Escreva seu nome completo." });
+    else if (nome.split(" ").length < 2) erros.push({ campo: "identificacao", msg: "Por favor, informe nome e sobrenome." });
+
+    if (!state.participacao) erros.push({ campo: "participacao", msg: "Selecione uma opção de participação." });
+    else if (!state.ajuda) erros.push({ campo: "ajuda", msg: "Selecione uma opção de disponibilidade." });
+
+    return erros;
+  }
+
+  function limparErros() {
+    el.formError.hidden = true;
+    el.formError.textContent = "";
+    el.formBody.querySelectorAll(".qsection.has-error").forEach(function (s) { s.classList.remove("has-error"); });
+    el.formBody.querySelectorAll(".qsection__erro").forEach(function (e) { e.hidden = true; e.textContent = ""; });
+  }
+
+  function mostrarErros(erros) {
+    limparErros();
+    if (!erros.length) return false;
+
+    erros.forEach(function (e) {
+      var sec = document.getElementById("sec-" + e.campo);
+      if (!sec) return;
+      sec.classList.add("has-error");
+      var box = document.getElementById("erro-" + e.campo);
+      if (box) { box.textContent = e.msg; box.hidden = false; }
+    });
+
+    el.formError.textContent = erros.length === 1
+      ? erros[0].msg
+      : "Faltam " + erros.length + " respostas obrigatórias. Veja os campos destacados acima.";
+    el.formError.hidden = false;
+
+    var primeiro = document.getElementById("sec-" + erros[0].campo);
+    if (primeiro) {
+      primeiro.scrollIntoView({ behavior: "smooth", block: "center" });
+      var foco = primeiro.querySelector("input, textarea");
+      if (foco) foco.focus({ preventScroll: true });
+    }
+    return true;
+  }
+
+  /* ------------------------------------------- notificação de confirmação */
+  function abrirConfirmacao() {
+    var dlg = document.getElementById("confirmDialog");
+    var resumo = document.getElementById("confirmSummary");
+    if (resumo) {
+      var tarefas = state.tarefas.filter(function (t) { return t !== "outra"; });
+      resumo.innerHTML =
+        "<strong>" + esc(state.nome) + "</strong><br>" +
+        "Participação: " + esc(D.participacaoLabel(state.participacao)) + "<br>" +
+        "Ajuda: " + esc(D.ajudaLabel(state.ajuda)) +
+        (tarefas.length ? "<br>Tarefas: " + esc(D.labels(D.TAREFAS, tarefas).join(" · ")) : "") +
+        (state.tarefas.indexOf("outra") !== -1 && state.outraAtividade ? "<br>Outra atividade: " + esc(state.outraAtividade) : "") +
+        (state.observacao ? "<br>Observação: " + esc(state.observacao) : "");
+    }
+    confirmando = true;
+    if (dlg && typeof dlg.showModal === "function") {
+      try { dlg.showModal(); return; } catch (e) { /* usa o modo simples abaixo */ }
+    }
+    if (dlg) dlg.setAttribute("open", "");
+  }
+
+  function fecharConfirmacao() {
+    confirmando = false;
+    var dlg = document.getElementById("confirmDialog");
+    if (!dlg) return;
+    if (typeof dlg.close === "function") {
+      try { dlg.close(); return; } catch (e) { /* usa o modo simples abaixo */ }
+    }
+    dlg.removeAttribute("open");
+  }
+
+  /* ------------------------------------------------------------------ envio */
+  function payload() {
+    return {
+      nome: state.nome,
+      participacao: state.participacao,
+      ajuda: state.ajuda,
+      tarefas: state.tarefas.slice(),
+      outraAtividade: state.tarefas.indexOf("outra") !== -1 ? state.outraAtividade : "",
+      observacao: state.observacao,
+      enviadoEm: new Date().toISOString(),
+      origem: "formulario-confraternizacao-senai-2026"
+    };
+  }
+
+  function submit() {
+    if (sending) return;
+    sending = true;
+    el.btnSubmit.disabled = true;
+    el.btnSubmit.innerHTML = '<span class="spinner" aria-hidden="true"></span> Enviando…';
+    el.formError.hidden = true;
+
+    API.submit(payload())
+      .then(function (res) {
+        sending = false;
+        showSuccess(res && res.registro ? res.registro : payload());
+      })
+      .catch(function (err) {
+        sending = false;
+        el.btnSubmit.disabled = false;
+        el.btnSubmit.innerHTML = "Enviar respostas " + D.icon("check", 18);
+        if (err && err.code === "NOT_CONFIGURED") {
+          el.formError.textContent =
+            "Sua resposta NÃO foi salva: o site ainda não está conectado à planilha. " +
+            "Falta colar a URL do Web App do Apps Script em assets/js/config.js (campo API_URL) " +
+            "e publicar o site novamente.";
+        } else {
+          el.formError.textContent =
+            "Não foi possível registrar sua resposta. " +
+            (err && err.message ? err.message + " " : "") +
+            "Você pode tentar novamente.";
+        }
+        el.formError.hidden = false;
+      });
+  }
+
+  function onSubmit() {
+    if (sending || confirmando) return;
+    collect();
+    sanitize();
+    sync();
+    if (mostrarErros(validar())) return;
+    abrirConfirmacao();
+  }
+
+  function showSuccess(reg) {
+    pararTimer();
+    fecharConfirmacao();
+    var tarefas = (reg.tarefas || []).filter(function (t) { return t !== "outra"; });
+    var linhas = "";
+    linhas += '<div class="success__line"><span>Nome</span><strong>' + esc(reg.nome) + "</strong></div>";
+    linhas += '<div class="success__line"><span>Participação</span><strong>' + esc(D.participacaoLabel(reg.participacao)) + "</strong></div>";
+    linhas += '<div class="success__line"><span>Ajuda na organização</span><strong>' + esc(D.ajudaLabel(reg.ajuda)) + "</strong></div>";
+    if (tarefas.length) {
+      linhas += '<div class="success__line"><span>Tarefas</span><strong>' +
+        esc(D.labels(D.TAREFAS, tarefas).join(" · ")) + "</strong></div>";
+    }
+    el.successSummary.innerHTML = linhas;
+
+    el.home.hidden = true;
+    el.form.hidden = true;
+    el.success.hidden = false;
+    el.progressWrap.hidden = true;
+    var titulo = el.success.querySelector("h2");
+    if (titulo) { titulo.setAttribute("tabindex", "-1"); titulo.focus(); }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ------------------------------------------------------------------ views */
+  function showHome() {
+    pararTimer();
+    fecharConfirmacao();
+    el.home.hidden = false;
+    el.form.hidden = true;
+    el.success.hidden = true;
+    el.progressWrap.hidden = true;
+  }
+
+  function showForm() {
+    el.home.hidden = true;
+    el.form.hidden = false;
+    el.success.hidden = true;
+    el.progressWrap.hidden = false;
+    buildForm();
+    iniciarTimer();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function resetState() {
+    state = { nome: "", participacao: null, ajuda: null, tarefas: [], outraAtividade: "", observacao: "" };
+    sending = false;
+    confirmando = false;
+    tarefasFiltroAtual = undefined;
+  }
+
+  /* -------------------------------------------------------------- listeners */
+  function bind() {
+    document.getElementById("btnStart").addEventListener("click", function () {
+      resetState();
+      showForm();
+    });
+    document.getElementById("btnBackHome").addEventListener("click", showHome);
+    document.getElementById("btnNewResponse").addEventListener("click", function () {
+      resetState();
+      showForm();
+    });
+    document.getElementById("brandHome").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (sending) return;
+      showHome();
+    });
+
+    var linkForm = document.getElementById("footerForm");
+    if (linkForm) {
+      linkForm.addEventListener("click", function (e) {
+        e.preventDefault();
+        resetState();
+        showForm();
+      });
+    }
+
+    el.btnSubmit.addEventListener("click", onSubmit);
+
+    el.btnReset.addEventListener("click", function () {
+      if (!window.confirm("Limpar todas as respostas preenchidas?")) return;
+      resetState();
+      limparErros();
+      buildForm();
+      iniciarTimer();
+    });
+
+    el.formBody.addEventListener("change", function (e) {
+      var t = e.target;
+      if (t.name === "participacao") {
+        state.participacao = t.value;
+        state.ajuda = null;
+        state.tarefas = [];
+        sanitize();
+      } else if (t.name === "ajuda") {
+        state.ajuda = t.value;
+        if (t.value === "nao_ajudo") { state.tarefas = []; }
+      } else if (t.name === "tarefas") {
+        var v = t.value;
+        if (t.checked) {
+          if (state.tarefas.indexOf(v) === -1) state.tarefas.push(v);
+        } else {
+          state.tarefas = state.tarefas.filter(function (x) { return x !== v; });
+        }
+      }
+      sync();
+    });
+
+    el.formBody.addEventListener("input", function (e) {
+      if (e.target.id === "nome") { state.nome = e.target.value; pintarProgresso(); marcarConcluidas(); }
+      if (e.target.id === "observacao") state.observacao = e.target.value;
+      if (e.target.id === "outraAtividade") state.outraAtividade = e.target.value;
+    });
+
+    var btnConfirmYes = document.getElementById("btnConfirmYes");
+    if (btnConfirmYes) {
+      btnConfirmYes.addEventListener("click", function () {
+        fecharConfirmacao();
+        submit();
+      });
+    }
+    var btnConfirmChange = document.getElementById("btnConfirmChange");
+    if (btnConfirmChange) {
+      btnConfirmChange.addEventListener("click", function () {
+        fecharConfirmacao();
+        var nomeEl = document.getElementById("nome");
+        if (nomeEl) nomeEl.focus();
+      });
+    }
+
+    window.addEventListener("beforeunload", function (e) {
+      if (sending) { e.preventDefault(); e.returnValue = ""; }
+    });
+  }
+
+  /* ---------------------------------------------------------------- inicial */
+  function init() {
+    document.querySelectorAll("[data-icon]").forEach(function (node) {
+      node.innerHTML = D.icon(node.getAttribute("data-icon"), node.classList.contains("info-card__icon") ? 24 : 18);
+    });
+    if (!API.isConfigured()) el.configWarning.hidden = false;
+    bind();
+    showHome();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+
+
+</script>
+</body>
+</html>
