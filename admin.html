@@ -19,24 +19,21 @@
 <section id="viewLogin">
   <div class="card login">
     <div class="login__icon" data-icon="lock" aria-hidden="true"></div>
-    <h1>Painel do organizador</h1>
-    <p>Área restrita à organização do Formulário de Confraternização. O acesso é validado no servidor.</p>
+    <h1>Área do organizador</h1>
+    <p>Entre com a sua chave de acesso para ver quem já respondeu, em ordem alfabética.</p>
 
     <p class="alert alert--error" id="loginError" role="alert" hidden></p>
 
     <form id="loginForm" novalidate>
       <div class="field">
-        <label class="field__label" for="usuario">Usuário</label>
-        <input class="input" id="usuario" name="usuario" type="text" autocomplete="username" required />
+        <label class="field__label" for="senha">Chave de acesso</label>
+        <input class="input input--lg" id="senha" name="senha" type="password" autocomplete="current-password" placeholder="Digite a sua chave" required />
+        <p class="field__hint">Só quem organiza a confraternização tem essa chave.</p>
       </div>
-      <div class="field">
-        <label class="field__label" for="senha">Senha</label>
-        <input class="input" id="senha" name="senha" type="password" autocomplete="current-password" required />
-      </div>
-      <button class="btn btn--primary btn--lg" type="submit" id="btnLogin" style="width:100%">Entrar no painel</button>
+      <button class="btn btn--primary btn--lg" type="submit" id="btnLogin" style="width:100%">Entrar</button>
     </form>
     <p class="field__hint" style="margin-top:16px">
-      Esqueceu a senha? Ela fica guardada nas propriedades do script do Apps Script (<code>SENHA_ADMIN</code>).
+      Esqueceu a chave? Ela foi definida na linha <code>SENHA_INICIAL</code> do código do Apps Script.
     </p>
     <p style="margin-top:10px"><a href="index.html" style="color:var(--blue);font-weight:600;font-size:14px">← Voltar ao formulário</a></p>
   </div>
@@ -1023,20 +1020,22 @@ window.CONF_CONFIG = {
     carregar();
   }
 
+  /* Chave de acesso: o usuário é fixo, quem entra digita só a chave. */
+  var USUARIO_FIXO = "organizacao";
+
   function doLogin(ev) {
     ev.preventDefault();
-    var u = $("usuario").value.trim();
     var s = $("senha").value;
     var errBox = $("loginError");
     errBox.hidden = true;
 
-    if (!u || !s) { errBox.textContent = "Informe usuário e senha."; errBox.hidden = false; return; }
+    if (!s) { errBox.textContent = "Digite a sua chave de acesso."; errBox.hidden = false; return; }
 
     var btn = $("btnLogin");
     btn.disabled = true;
     btn.textContent = "Verificando…";
 
-    API.login(u, s)
+    API.login(USUARIO_FIXO, s)
       .then(function (res) {
         token = res.token;
         try { sessionStorage.setItem(TOKEN_KEY, token); } catch (e) {}
@@ -1051,7 +1050,7 @@ window.CONF_CONFIG = {
       })
       .finally(function () {
         btn.disabled = false;
-        btn.textContent = "Entrar no painel";
+        btn.textContent = "Entrar";
       });
   }
 
