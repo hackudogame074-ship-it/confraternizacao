@@ -700,7 +700,8 @@ td.col-tarefas{max-width:330px}
 /* =============================================================================
  * config.js — Configuração do site
  * -----------------------------------------------------------------------------
- * Preencha API_URL com a URL do Web App do Google Apps Script (ver README.md).
+ * API_URL liga o formulário ao Google Sheets (Web App do Apps Script).
+ * As informações do evento estão escritas direto no index.html.
  * ========================================================================== */
 window.CONF_CONFIG = {
   /* URL do Web App do Apps Script — termina em /exec */
@@ -710,13 +711,9 @@ window.CONF_CONFIG = {
   SHEET_URL: "https://docs.google.com/spreadsheets/d/1sJuuv_GuPQY02B1D9c8kxYqLlv8mAi9JoH9xfkj0S-Q/edit",
   DOC_URL: "",
 
-  /* Dados do evento — edite aqui quando a organização definir */
+  /* Evento */
   EVENT_DATE_ISO: "2026-12-11",
   EVENT_DATE_LABEL: "11 de dezembro de 2026",
-  EVENT_SHORT: "11 · DEZ · 2026",
-  EVENT_TIME_LABEL: "A confirmar",
-  EVENT_PLACE_LABEL: "A confirmar",
-  DRESS_LABEL: "Livre, com um detalhe natalino",
   CLASS_NAME: "Assistente de Logística",
 
   /* Contagem regressiva — meia-noite do dia do evento (horário de Brasília) */
