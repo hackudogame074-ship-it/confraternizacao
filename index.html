@@ -281,6 +281,22 @@
     </div>
   </dialog>
 
+  <!-- ======================= ACESSO DA ORGANIZAÇÃO ======================= -->
+  <section class="acesso-adm">
+    <div class="acesso-adm__txt">
+      <p class="acesso-adm__kicker">Só para a organização</p>
+      <h2>Quer ver quem já respondeu?</h2>
+      <p>
+        Área restrita com a lista em ordem alfabética: quem vai, quem não vai,
+        quem se ofereceu para ajudar e quais tarefas ainda estão sem responsável.
+        O acesso pede uma <strong>chave</strong> que só a organização tem.
+      </p>
+    </div>
+    <a class="btn btn--primary btn--lg" href="admin.html">
+      🔒 Entrar com a chave
+    </a>
+  </section>
+
 </main>
 
 <footer class="footer">
@@ -982,6 +998,27 @@ td.col-tarefas{max-width:330px}
 .footer__admin:hover{background:rgba(57,255,20,.12);color:#fff!important;border-color:rgba(57,255,20,.45);text-decoration:none!important}
 .footer__evento{
   font-size:12.5px;line-height:1.85;color:#B9CFE4;margin:2px 0 4px
+}
+
+/* --- bloco de acesso da organização (acima do rodapé) --- */
+.acesso-adm{
+  margin-top:34px;padding:clamp(22px,4vw,34px);border-radius:24px;
+  background:linear-gradient(135deg,#0B2E52,#071B33 70%);
+  border:1px solid rgba(57,255,20,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  box-shadow:0 24px 60px rgba(7,27,51,.28)
+}
+.acesso-adm__kicker{
+  font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:8px
+}
+.acesso-adm h2{font-size:clamp(19px,3.5vw,25px);font-weight:800;color:#fff;letter-spacing:-.02em}
+.acesso-adm p{font-size:14px;color:#BDD3E8;margin-top:8px;max-width:520px;line-height:1.6}
+.acesso-adm p strong{color:#fff}
+.acesso-adm .btn{flex:0 0 auto;white-space:nowrap}
+@media (max-width:640px){
+  .acesso-adm{margin-top:22px;border-radius:18px;flex-direction:column;align-items:stretch}
+  .acesso-adm .btn{width:100%}
 }
 
 .passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
