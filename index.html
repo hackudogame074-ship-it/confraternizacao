@@ -294,7 +294,7 @@
     <nav class="footer__links" aria-label="Links do rodapé">
       <a href="#conteudo">Início</a>
       <a href="#conteudo" id="footerForm">Responder formulário</a>
-      <span style="color:#5C7FA6">Projeto da turma · v1.4</span>
+      <a href="admin.html" class="footer__admin">🔑 Área do organizador</a>
     </nav>
   </div>
 </footer>
@@ -961,6 +961,13 @@ td.col-tarefas{max-width:330px}
   border-left:4px solid var(--blue);font-size:13px;line-height:1.65;color:#34506B
 }
 .privacidade strong{color:var(--blue)}
+
+.footer__admin{
+  color:#8FB6DC!important;text-decoration:none!important;
+  border:1px solid rgba(143,182,220,.35);padding:5px 12px;border-radius:999px;
+  font-size:12px;transition:background-color .2s,color .2s,border-color .2s
+}
+.footer__admin:hover{background:rgba(57,255,20,.12);color:#fff!important;border-color:rgba(57,255,20,.45);text-decoration:none!important}
 
 .passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
 .passo{
