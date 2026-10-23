@@ -39,11 +39,6 @@
   </div>
 </header>
 
-<div class="config-warning" id="configWarning" hidden role="status">
-  <strong>Banco de dados não configurado.</strong>
-  <span>Este site ainda não está conectado à planilha de respostas. Nenhuma resposta será salva permanentemente até que a URL do serviço seja configurada em <code>assets/js/config.js</code>.</span>
-</div>
-
 <main id="conteudo">
 
   <!-- ============================= HOME ============================= -->
@@ -64,8 +59,15 @@
           <span class="hero2__accent">Logística</span>
         </h1>
 
+        <p class="hero2__meta">
+          <span>11 dez 2026</span><span class="hero2__metaSep">·</span>
+          <span>sexta-feira</span><span class="hero2__metaSep">·</span>
+          <span>13h30 às 17h20</span><span class="hero2__metaSep">·</span>
+          <span>SENAI Santarém · Sala 05</span>
+        </p>
+
         <p class="hero2__sub">
-          Uma noite para fechar o ano da nossa turma. Responda ao formulário para dizer
+          Uma <strong>tarde</strong> para fechar o ano da nossa turma. Responda ao formulário para dizer
           <strong>se você vai</strong> e <strong>como pode ajudar</strong> a fazer acontecer.
         </p>
 
@@ -285,6 +287,10 @@
   <div class="footer__inner">
     <p class="footer__brand">Formulário de Confraternização · SENAI 2026</p>
     <span class="footer__divider" aria-hidden="true"></span>
+    <p class="footer__evento">
+      Confraternização de Natal · 11 de dezembro de 2026, sexta-feira · 13h30 às 17h20 · turno vespertino<br />
+      SENAI Santarém — Unidade Prainha · Sala 05 · Av. Curuá-Una, 249 · Prainha · Santarém–PA · CEP 68010-000
+    </p>
     <p class="footer__copy">© 2026 Turma de Assistente de Logística — SENAI. Todos os direitos reservados.</p>
     <p class="footer__note">
       Este site foi desenvolvido e organizado pela própria turma para uso interno na organização da
@@ -853,7 +859,8 @@ td.col-tarefas{max-width:330px}
   content:"";position:absolute;inset:0;
   background:
     linear-gradient(90deg,rgba(7,27,51,.97) 0%,rgba(7,27,51,.93) 36%,rgba(7,27,51,.5) 66%,rgba(7,27,51,.22) 100%),
-    radial-gradient(ellipse at 74% 26%,rgba(57,255,20,.12),transparent 62%)
+    radial-gradient(ellipse at 74% 26%,rgba(57,255,20,.12),transparent 62%),
+    radial-gradient(ellipse at 88% 74%,rgba(255,183,77,.16),transparent 58%)
 }
 .hero2__glow{
   position:absolute;width:430px;height:430px;border-radius:50%;z-index:-1;right:-130px;top:-130px;
@@ -881,9 +888,14 @@ td.col-tarefas{max-width:330px}
   -webkit-text-fill-color:transparent
 }
 .hero2__sub{
-  margin-top:18px;max-width:520px;font-size:clamp(14.5px,2.3vw,17px);
+  margin-top:14px;max-width:520px;font-size:clamp(14.5px,2.3vw,17px);
   color:#C7D9EB;line-height:1.65
 }
+.hero2__meta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:16px;
+  font-size:12px;font-weight:600;color:#CFE0F0;letter-spacing:.01em
+}
+.hero2__metaSep{color:rgba(57,255,20,.85);font-weight:800}
 .hero2__sub strong{color:#fff;font-weight:700}
 .countdown{display:flex;gap:9px;margin-top:26px;flex-wrap:wrap}
 .countdown__item{
@@ -968,6 +980,9 @@ td.col-tarefas{max-width:330px}
   font-size:12px;transition:background-color .2s,color .2s,border-color .2s
 }
 .footer__admin:hover{background:rgba(57,255,20,.12);color:#fff!important;border-color:rgba(57,255,20,.45);text-decoration:none!important}
+.footer__evento{
+  font-size:12.5px;line-height:1.85;color:#B9CFE4;margin:2px 0 4px
+}
 
 .passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
 .passo{
@@ -1328,7 +1343,6 @@ window.CONF_CONFIG = {
     progressFill: document.getElementById("progressFill"),
     progressLabel: document.getElementById("progressLabel"),
     progressPct: document.getElementById("progressPct"),
-    configWarning: document.getElementById("configWarning"),
     successSummary: document.getElementById("successSummary"),
     timer: document.getElementById("timer"),
     timerLabel: document.getElementById("timerLabel"),
@@ -1959,7 +1973,6 @@ window.CONF_CONFIG = {
     document.querySelectorAll("[data-icon]").forEach(function (node) {
       node.innerHTML = D.icon(node.getAttribute("data-icon"), node.classList.contains("info-card__icon") ? 24 : 18);
     });
-    if (!API.isConfigured()) el.configWarning.hidden = false;
     iniciarContagem();
     carregarContador();
     animarReveal();
